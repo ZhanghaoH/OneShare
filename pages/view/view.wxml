@@ -1,7 +1,7 @@
 <loading hidden="{{published}}">
   问题发布中...
 </loading>
-  <view class="btn-fixed-bottom" bindtap="toAnswer" disabled="istoAnswer">{{ tipStr }}</view>
+  <view class="btn-fixed-bottom" bindtap="toAnswer" disabled="istoAnswer">{{ tipStr.text }}</view>
 <view class="question-container">
   <view class="top-container flex-row">
     <image class="card-avatar" src="{{publisherPic}}"></image>

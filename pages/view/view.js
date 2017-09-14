@@ -6,6 +6,11 @@ var common = require('../../utils/common.js');
 var pay = require('../../utils/pay.js');
 var dboperation = require('../../utils/DBOperation.js');
 var that, user_id, tip_str;
+const btnText = [
+  { id: 0, text: "回答问题" },
+  { id: 1, text: "补充问题" },
+  { id: 2, text: "完善答案" },
+]
 Page({
   data: {
     user: {},
@@ -26,7 +31,7 @@ Page({
     loading: false,
     published: true,
     istoAnswer: true,
-    tipStr: "回答问题"
+    // tipStr: btnText[0]
   },
   onLoad: function (options) {
     that = this;
@@ -68,7 +73,7 @@ Page({
       console.log(user_id + "--" + that.data.publisher)
       if (user_id == that.data.publisherId) {
         that.setData({
-          tipStr: "补充问题",
+          tipStr: btnText[1],
           istoAnswer: false
         })
       }
@@ -83,8 +88,8 @@ Page({
             answerList.push(resData);
             if (user_id == resData.get("publisherId")) {
               that.setData({
-                tipStr: "完善答案",
-                istoAnswer: false
+                tipStr: btnText[2],
+                istoAnswer: false,
               })
             }
             console.log(answerList);
@@ -95,6 +100,10 @@ Page({
         });
       }
     });
+    that.setData({
+      tipStr: btnText[0],
+      istoAnswer: false,
+    })
   },
   onShow: function () {
     // var myInterval = setInterval(getReturn, 500);
@@ -123,7 +132,23 @@ Page({
     that = this;
     var dataset = event.currentTarget.dataset;
     var answer = { "id": dataset.id, "qid": dataset.qid };
-    console.log("answer:" + answer);
+    var tipId = that.tipStr.id;
+    switch (tipId) {
+      // 回答问题
+      case 0:
+
+        break;
+      // 补充问题
+      case 1:
+        break;
+      // 完善答案
+      case 2:
+        break;
+      default:
+        break;
+    }
+  },
+  toViewAnswerPage: function () {
     wx.getStorage({
       key: 'user_openid',
       success: function (res) {
@@ -135,7 +160,7 @@ Page({
           if (arrPay.length != 0) {
             arrPay.map((e, i) => {
               if (e.id == user_id) {
-                that.toViewAnswerPage(JSON.stringify(answer));
+                wx.navigateTo({url: '../viewAnswer/viewAnswer?answer=' + JSON.stringify(answer),});
                 reject();
               }
             });
@@ -146,18 +171,10 @@ Page({
           arrPay.push(nobj);
           return dboperation.change("Answers", dataset.id, { "paiedId": arrPay, "viewNum": arrPay.length - 1 });
         }).then(() => {
-          that.toViewAnswerPage(JSON.stringify(answer));
+          wx.navigateTo({ url: '../viewAnswer/viewAnswer?answer=' + JSON.stringify(answer)});
         });
       },
     })
-  },
-  toViewAnswerPage: function (anstr) {
-    wx.navigateTo({
-      url: '../viewAnswer/viewAnswer?answer=' + anstr,
-      complete: function (res) {
-        // complete
-      }
-    });
   },
   toAnswer: function (event) {
     wx.navigateTo({
