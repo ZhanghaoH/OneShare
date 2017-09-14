@@ -1,0 +1,29 @@
+<view class="page">
+  <view class="page__hd i-header">
+    <view class="g-bd">
+      <view></view>
+      <view class="g-bda">
+        <view bindtap="" class="g-bda-userinfo">
+          <image class="userinfo-avatar" src="/image/one.png"></image>
+          <text class="userinfo-nickname">壹元知享</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="page__bd">
+    <view class="weui-panel">
+      <view class="weui-panel__bd">
+        <text class="aboutText">壹元知享是我国线上第一家专学生打造的知识共享平台。本平台适用于任何年龄段的学生主体，包括小学、初中、高中、大学本科、研究生等，可获得最有效的共享知识。本平台以问答留言方式为基础，旨在打破教育诸多领域信息不对称的现实难题，力争为广大学生群体打造出干净、有效、实惠、便捷的线上共享平台，努力为我国教育事业做出应有的贡献。
+        </text>
+      </view>
+    </view>
+    <view class="page__bd page__bd_spacing">
+      <view class="weui-footer weui-footer_fixed-bottom">
+        <view class="softHtp weui-footer__text">
+          <navigator url="../protocol/protocol">用户服务条款</navigator>
+        </view>
+        <!--<view class="weui-footer__text">北京市达者教育咨询有限公司 版权所有</view>-->
+      </view>
+    </view>
+  </view>
+</view>

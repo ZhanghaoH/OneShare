@@ -1,0 +1,104 @@
+<import src="../../style/footer.wxml" />
+<view class="page__hd i-header">
+  <view class="g-bd">
+    <view></view>
+    <view class="g-bda">
+      <view bindtap="" class="g-bda-userinfo">
+        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}"></image>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="container">
+  <view class="page-body">
+    <view class="weui-panel">
+      <view class="weui-panel__bd">
+        <view class="btn-area">
+          <view class="weui-panel weui-panel_access">
+            <view class="weui-panel__hd">请确定您的个人信息已填写完整，与证件信息相符，且邮箱填写正确并已验证，否则将不利于您获得回答者认证资格。</view>
+          </view>
+          <button size="" type="primary" plain="true" bindtap="toProfile">完善个人信息</button>
+        </view>
+      </view>
+    </view>
+    <view class="weui-panel">
+      <view class="weui-panel__bd">
+        <view class="btn-area">
+          <view class="weui-panel weui-panel_access">
+            <view class="weui-panel__hd">请上传对应的证件照片，如有照片缺失的情况，可能会影响审核结果。</view>
+            <view class="weui-panel__bd">
+              <block wx:for-items="{{urlArr1}}" wx:key="{{index}}">
+                <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                  <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                    <image class="weui-media-box__thumb" src="{{item.url}}" />
+                  </view>
+                  <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                    <view class="weui-media-box__title">{{status[statusIndex1]}}</view>
+                    <view class="weui-media-box__desc" bindtap="delImg1">若需重新上传照片，点击此处并确认“删除”后再次上传</view>
+                  </view>
+                </navigator>
+              </block>
+            </view>
+          </view>
+          <loading hidden="{{loading}}">
+            图片上传中...
+          </loading>
+          <button size="" type="primary" plain="true" bindtap="upImg1">上传教师/学生证照片</button>
+        </view>
+        <view class="btn-area">
+          <view class="weui-panel weui-panel_access">
+            <view class="weui-panel__bd">
+              <block wx:for-items="{{urlArr2}}" wx:key="{{index}}">
+                <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                  <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                    <image class="weui-media-box__thumb" src="{{item.url}}" />
+                  </view>
+                  <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                    <view class="weui-media-box__title">{{status[statusIndex2]}}</view>
+                    <view class="weui-media-box__desc" bindtap="delImg2">若需重新上传照片，点击此处并确认“删除”后再次上传</view>
+                  </view>
+                </navigator>
+              </block>
+            </view>
+          </view>
+          <loading hidden="{{loading}}">
+            图片上传中...
+          </loading>
+          <button size="" type="primary" plain="true" bindtap="upImg2">上传校园卡照片</button>
+        </view>
+        <view class="btn-area">
+          <view class="weui-panel weui-panel_access">
+            <view class="weui-panel__bd">
+              <block wx:for-items="{{urlArr3}}" wx:key="{{index}}">
+                <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                  <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                    <image class="weui-media-box__thumb" src="{{item.url}}" />
+                  </view>
+                  <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                    <view class="weui-media-box__title">{{status[statusIndex3]}}</view>
+                    <view class="weui-media-box__desc" bindtap="delImg3">若需重新上传照片，点击此处并确认“删除”后再次上传</view>
+                  </view>
+                </navigator>
+              </block>
+            </view>
+          </view>
+          <loading hidden="{{loading}}">
+            图片上传中...
+          </loading>
+          <button type="primary" plain="true" bindtap="upImg3">上传录取通知书照片（仅学生）</button>
+        </view>
+      </view>
+    </view>
+    <view class="weui-panel">
+      <view class="weui-panel__bd">
+        <view class="btn-area">
+          <view class="weui-panel weui-panel_access">
+            <view class="weui-panel__hd">若个人信息已填写完整，对应证件照片也已上传，请点击“确认申请”。如有信息缺失，可能会影响审核结果</view>
+          </view>
+          <button size="" type="primary" bindtap="verifyOK">确认申请</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

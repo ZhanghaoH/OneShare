@@ -1,0 +1,400 @@
+.add_pic {
+  padding: 0 40rpx;
+  padding-bottom: 20rpx;
+  background: #fff;
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+}
+
+.add_pic view {
+  display: inline-block;
+  margin-top: 20rpx;
+  width: 400rpx;
+  height: 200rpx;
+  line-height: 200rpx;
+  text-align: center;
+  background: url(http://bmob-cdn-7744.b0.upaiyun.com/2016/11/23/95953c8b40f0d089800ebec438581cc4.png) no-repeat left center;
+  background-size: 160rpx auto;
+  padding-left: 80rpx;
+  color: #b2b2b2;
+}
+
+.image_box {
+  width: 100%;
+  background: #fff;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  padding: 10px 40rpx 10rpx;
+}
+
+.add_title, .addConent {
+  padding: 8rpx 30rpx;
+  color: #646464;
+  background: #fff;
+}
+
+.add_title {
+  border-bottom: 1px solid #eaeaea;
+  height: 88rpx;
+}
+
+.addConent textarea {
+  width: 100%;
+  height: 200rpx;
+}
+
+.addConent {
+  padding-top: 30rpx;
+  overflow: hidden;
+  margin-bottom: 30rpx;
+  height: 300rpx;
+}
+
+label {
+  color: #a0a0a0;
+  padding-left: 40rpx;
+}
+
+label text {
+  padding-left: 10rpx;
+}
+
+button {
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 16px;
+  border: 0 none;
+  background: #e74c3c;
+  color: #fff;
+  margin: 30rpx auto;
+}
+
+.picPre {
+  width: 50%;
+  margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.picPre image {
+  width: 100%;
+  height: 180rpx;
+}
+
+.picPre view {
+  position: absolute;
+  right: 0px;
+  top: -20rpx;
+  width: 15px;
+  height: 15px;
+  background: url(http://bmob-cdn-7744.b0.upaiyun.com/2016/11/23/23e708d8401db28080a47d384712f765.png) no-repeat;
+  background-size: cover;
+}
+
+.hidden {
+  display: none;
+}
+
+@import "../common/index.wxss";
+
+.navigator-hover button {
+  background-color: #dedede;
+}
+
+.other-navigator-hover button {
+  background-color: #dedede;
+}
+
+.toWrite {
+  width: 75rpx;
+  height: 75rpx;
+  display: block;
+  padding: 0;
+  position: fixed;
+  right: 75rpx;
+  bottom: 75rpx;
+  border-radius: 50%;
+  z-index: 999;
+}
+
+.picker-cell {
+  position: relative;
+  padding: 12px 15px;
+  display: flex;
+  align-items: center;
+  line-height: 1.4;
+  font-size: 14px;
+  background-color: #fff;
+  color: #646464;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.weui-panel__ft {
+  padding: 14px 15px 10px;
+  color: #999;
+  background-color: #f8f8f8;
+  font-size: 13px;
+  text-align: center;
+  position: relative;
+}
+
+.userinfo-cell image.cover {
+  position: absolute;
+  left: 20rpx;
+  top: 20rpx;
+  width: 150rpx;
+  height: 150rpx;
+  margin: 10rpx;
+}
+
+.zan-form__title {
+  text-align: center;
+  float: left;
+  width: 350rpx;
+  font-size: 16px;
+}
+
+page {
+  height: 100%;
+  background-color: #efeff4;
+}
+
+view, scroll-view, input, text {
+  box-sizing: border-box;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.wx-cells {
+  width: 100%;
+  margin-top: 45rpx;
+  font-size: 34rpx;
+  border-top: 1rpx solid #d9d9d9;
+  border-bottom: 1rpx solid #d9d9d9;
+  background-color: #fff;
+}
+
+.wx-cell {
+  padding: 20rpx 25rpx;
+  display: flex;
+  align-items: center;
+}
+
+.wx-cell-icon {
+  width: 56rpx;
+  height: 56rpx;
+}
+
+.wx-cell-text {
+  flex: 1;
+  margin-left: 30rpx;
+}
+
+.wx-cell-arrow {
+  width: 30rpx;
+  height: 30rpx;
+  margin-left: 10rpx;
+}
+
+.wx-cell-inner {
+  padding: 30rpx 30rpx 30rpx 0;
+  margin-left: 30rpx;
+  border-bottom: 1rpx solid #d9d9d9;
+}
+
+.wx-cell-left {
+  font-size: 35rpx;
+  align-items: center;
+}
+
+.wx-cell-right {
+  align-items: center;
+}
+
+.wx-cell-right-text {
+  font-size: 30rpx;
+  color: #808080;
+}
+
+.no-border {
+  border: 0;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-rest-height {
+  flex: 1;
+  height: initial;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-rest-width {
+  flex: 1;
+  width: initial;
+}
+
+.placeholder-class {
+  color: #808080;
+}
+
+.tweet-container {
+  background-color: white;
+  margin: 0;
+  margin-bottom: 20rpx;
+}
+
+.answerer-container {
+  background-color: white;
+  margin: 0;
+}
+
+.top-container {
+  padding: 20rpx;
+  border-bottom: 1rpx solid #e1e1e1;
+}
+
+.user-container {
+  display: flex;
+  flex-direction: column;
+  width: 550rpx;
+}
+
+.card-avatar {
+  background-color: #c8c8c8;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 8rpx;
+  margin-left: 15rpx;
+  margin-top: 15rpx;
+}
+
+.answerer-avatar {
+  background-color: #c8c8c8;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin-left: 15rpx;
+  margin-top: 15rpx;
+}
+
+.card-time {
+  font-size: 26rpx;
+  color: #8999a5;
+  margin-top: 8rpx;
+  margin-left: 10px;
+}
+
+.card-time__below {
+  font-size: 26rpx;
+  color: #8999a5;
+  margin-left: 10px;
+}
+
+.card-subtitle {
+  font-size: 26rpx;
+  color: #8999a5;
+  margin-top: 8rpx;
+  margin-left: 8rpx;
+  width: 300rpx;
+}
+
+.card-subtitle__below {
+  font-size: 26rpx;
+  color: #8999a5;
+  margin-left: 30px;
+  width: 300rpx;
+}
+
+.card-label {
+  font-size: 26rpx;
+  color: #8999a5;
+  margin-top: 8rpx;
+  margin-left: 8rpx;
+  width: 100rpx;
+}
+
+.card-view {
+  font-size: 26rpx;
+  color: #8999a5;
+  margin-top: 8rpx;
+  margin-left: 10px;
+  width: 180rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-like {
+  font-size: 26rpx;
+  color: #8999a5;
+  margin-left: 10px;
+  width: 150rpx;
+}
+
+.card-answer {
+  font-size: 26rpx;
+  color: #8999a5;
+  margin-top: 8rpx;
+  margin-left: 10px;
+  width: 110rpx;
+}
+
+.card-name {
+  color: #e74c3c;
+  font-weight: bold;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.middle-container {
+  padding: 15rpx;
+  padding-left: 25rpx;
+  border-bottom: 1rpx solid #e1e1e1;
+}
+
+.message-text {
+  color: #333;
+  font-size: 30rpx;
+  line-height: 40rpx;
+}
+
+.message-image {
+  width: 100%;
+  margin-top: 16rpx;
+  background-color: #e1e1e1;
+}
+
+.bottom-container {
+  height: 66rpx;
+  background-color: #fafafa;
+}
+
+.bottom-tool {
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #cecece;  
+}
+
+.bottom-tool-text {
+  color: #6d6d78;
+  font-size: 26rpx;
+}
+
+.label-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+

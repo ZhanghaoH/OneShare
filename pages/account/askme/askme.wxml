@@ -1,0 +1,23 @@
+<view class="page">
+  <scroll-view lower-threshold="800" bindscrolltolower="pullUpLoad" upper-threshold="0" scroll-y="true" style="height: {{windowHeight}}px;  ">
+    <view class="page__bd">
+      <view class="weui-panel">
+        <!--<view class="weui-panel__hd">我的提问</view>-->
+        <view class="weui-panel__bd">
+          <view class="weui-media-box weui-media-box_text" wx:for="{{qList}}" wx:key="diaryItem">
+            <!--<view class="weui-media-box__title weui-media-box__title_in-text">
+              {{item.title}}</view>-->
+            <navigator url="../../view/view?questionId={{item.objectId}}" open-type="redirect" hover-class="other-navigator-hover">
+              <view class="weui-media-box__desc">{{item.title}}</view>
+              <view class="weui-media-box__info">
+                <view class="weui-media-box__info__meta weui-media-time">时间：{{item.updatedAt}}</view>
+              </view>
+            </navigator>
+
+          </view>
+        </view>
+      </view>
+      <view style="text-align:center;line-height:2.555" wx:if="{{qList.length == 0}}">暂时没收到提问</view>
+    </view>
+  </scroll-view>
+</view>

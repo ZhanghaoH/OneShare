@@ -1,0 +1,34 @@
+
+.g-bda-userinfo {
+  padding-top: 50rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.weui-btn {
+  color: #fff;
+}
+.userinfo-avatar {
+  width: 180rpx;
+  height: 180rpx;
+  margin: 20rpx;
+  margin-bottom: 2rpx;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+.userinfo-nickname{
+  color: #fff;
+}
+button.weui-btn {
+  background-color: #e74c3c;
+}
+.weui-cells::before {
+  border-top: none;
+}
+.weui-cells::after {
+  border-bottom: none;
+}
+.weui-cells_after-title {
+  border: 1rpx solid #d9d9d9;
+  border-radius: 6px;
+}

@@ -1,0 +1,63 @@
+<loading hidden="{{loading}}">
+  页面初始化中...
+</loading>
+<loading hidden="{{published}}">
+  问题发布中...
+</loading>
+<scroll-view scroll-y="true" class="timeline" style="padding-bottom:70rpx">
+  <view class="tweet-container">
+    <view class="top-container flex-row">
+      <image class="card-avatar" src="{{question.publisherPic}}"></image>
+      <view class="user-container">
+        <text class="card-name">{{question.title}}</text>
+        <view class="label-container">
+          <text class="card-view"> {{question.publisher}}</text>
+          <text class="card-time"> | </text>
+          <image src="/image/ask-title.png" style="width: 18px;height: 18px;margin-left: 10px;"></image>
+          <text class="card-label">#{{question.label}}</text>
+          <text class="card-time"> | </text>
+          <text class="card-answer"> 回答：{{question.answerNum}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="middle-container flex-column ">
+      <text class="message-text ">{{question.content}}</text>
+    </view>
+  </view>
+  <view class="weui-panel">
+    <view class="weui-panel__bd">
+      <view class="answerer-container">
+        <view class="top-container flex-row">
+          <image class="answerer-avatar" src="{{answer.publisherPic}}"></image>
+          <view class="user-container">
+            <text class="card-time">{{answer.publisher}}</text>
+            <view class="label-container">
+              <text class="card-view">{{answer.major}}</text>
+              <text class="card-time"> | </text>
+              <image src="/image/answer-title.png" style="width: 18px;height: 18px;margin-left: 10px;"></image>
+              <text class="card-label">#{{answer.label}}</text>
+              <text class="card-time"> | </text>
+              <text class="card-like">靠谱：{{answer.like}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="addConent">
+        <!--<view class="paragraph" wx:for="{{content}}" wx:key="id">
+          {{item}}
+        </view>-->
+        {{answer.content}}
+      </view>
+    </view>
+  </view>
+</scroll-view>
+<view class="score-container" wx:if="{{!scored}}">
+  <form bindsubmit="modifyScore">
+    <view class="score">
+      <view class="body-view" style="flex:auto">
+        <slider value="60" bindchange="sliderChange" show-value/>
+      </view>
+      <button size="mini" formType="submit">提交评分</button>
+    </view>
+  </form>
+</view>

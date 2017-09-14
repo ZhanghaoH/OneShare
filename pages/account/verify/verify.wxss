@@ -1,0 +1,15 @@
+@import "../../common/index.wxss";
+
+.verify-img {
+  width: 200rpx;
+  height: 200rpx;
+  margin: 20rpx;
+  margin-bottom: 2rpx;
+  border: 2px solid #fff;
+}
+
+.upload {
+  border: 1px solid #e74c3c;
+  background: #fff;
+  color: #e74c3c;
+}

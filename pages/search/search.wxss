@@ -1,0 +1,163 @@
+/**index.wxss**/
+.userinfo-cell__header .ask{
+  display: flex;
+}
+.radio-group {
+  display: flex;
+  flex-grow: row nowrap;
+  align-items: center;
+  justify-content: space-around;
+}
+.radio-group label {
+  padding: 30rpx 0;
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+
+.add_layer {
+  width: 100%;
+  height: 100%;
+  background: rgba(66, 69, 72, 0.74);
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.add_layer input, .add_layer textarea, .add_layer button {
+  width: 80%;
+  margin: 0 auto;
+  margin: 15px auto;
+  font-size: 14px;
+  padding: 10rpx;
+}
+
+.add_layer input, .add_layer textarea {
+  background: #fff;
+}
+
+.diary_list {
+  border-bottom: 1px solid #ccc;
+  margin: 0px 0;
+  padding: 10px;
+  position: relative;
+}
+
+.diary_list text {
+  font-size: 16px;
+  color: #1e1e1e;
+}
+
+.diary_list view {
+  font-size: 14px;
+  padding: 5px 0;
+}
+
+.diary_list button {
+  position: absolute;
+  right: 15px;
+  top: 12px;
+}
+
+.diary_list button.modify {
+  right: 90px;
+}
+
+navigator {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  background: #dadada;
+  text-align: center;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.weui-media-box__info__operate {
+  float: right;
+  color: #1e1e1e;
+  padding-right: 0em;
+}
+
+.weui-media-box__info__operate .del {
+  margin-right: 15px;
+}
+
+/*改动：去除固定定位布局*/
+.toIdentify {
+  width: 50rpx;
+  height: 50rpx;
+  display: block;
+  padding: 0 15rpx;
+  /*position: fixed;
+  right: 20rpx;
+  top: 20rpx;*/
+  z-index: 999;
+}
+/*改动:输入框占满整行*/
+.weui-input {
+  flex: 1
+}
+
+
+.weui-media-box {
+  padding-bottom: 0px;
+}
+
+.weui-media-diploma {
+  width: 180rpx;
+  height: 1em;
+  overflow: hidden;
+}
+
+.weui-cells__title {
+  text-align: center;
+}
+
+textarea, input {
+  text-align: left;
+  color: #1e1e1e;
+}
+/*改动：去除下重合边框*/
+/*.weui-cells {
+  line-height: 10rpx;
+  border-bottom: 1rpx solid #7f8c8d;
+}*/
+
+.weui-cells__title {
+  padding-left: 0px;
+  color: #1e1e1e;
+}
+
+.weui-dialog__ft button {
+  background: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+form .weui-dialog__bd:first-child {
+  padding: 0px 30rpx 1.7em;
+}
+
+.page__ft {
+  padding-top: 40px;
+  padding-bottom: 10px;
+}
+
+.zan-form__title {
+  text-align: center;
+  float: left;
+  width: 135rpx;
+  font-size: 16px;
+}

@@ -1,0 +1,80 @@
+@import "../common/index.wxss";
+
+.pay-section {
+  width: auto;
+  margin: 30rpx;
+  padding: 0rpx 0rpx 64rpx 0rpx;
+  background-color: #fff;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.pay-section-head {
+  width: auto;
+  background-color: #fbfbfb;
+  text-align: center;
+  font-size: 32rpx;
+}
+
+.pay-section-head .image {
+  margin-top: 30rpx;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.desc {
+  color: #b2b2b2;
+}
+
+.price {
+  margin-top: 30rpx;
+  margin-bottom: 25rpx;
+  position: relative;
+  display: inline-block;
+  font-size: 78rpx;
+  line-height: 1;
+}
+
+.price:before {
+  content: "¥";
+  position: absolute;
+  font-size: 40rpx;
+  top: 8rpx;
+  left: -40rpx;
+}
+
+.pay-head-title {
+  display: inline-block;
+  padding: 0 40rpx 20rpx 40rpx;
+  font-size: 32rpx;
+  color: #bebebe;
+}
+
+.pay-section-body {
+  width: auto;
+  margin-top: 20rpx;
+  background-color: #fff;
+  text-align: center;
+  font-size: 32rpx;
+}
+
+.pay-body-title {
+  display: inline-block;
+  padding: 10rpx 40rpx 20rpx 40rpx;
+  font-size: 32rpx;
+  color: #bebebe;
+}
+
+.pay-body-line {
+  margin: 30rpx 30rpx 50rpx 30rpx; 
+  height: 2rpx;
+  background-color: #d8d8d8;
+}
+
+.pay-head-desc {
+  padding-top: 20rpx;
+  color: #9b9b9b;
+  font-size: 32rpx;
+}

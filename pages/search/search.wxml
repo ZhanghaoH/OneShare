@@ -1,0 +1,42 @@
+<view class="page" style="height:100%">
+  <scroll-view lower-threshold="800" bindscrolltolower="pullUpLoad" upper-threshold="0" scroll-y="true" style="height: 100%">
+    <view class="page__bd">
+      <view class="weui-panel">
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell weui-cell_input">
+            <input class="weui-input" bindinput="bindKeyInput" placeholder="请输入回答者信息" />
+            <image class="toIdentify"  src="/image/identify.png"></image>
+          </view>
+        </view>
+        <view class="weui-panel__bd">
+          <radio-group class="radio-group" bindchange="radioChange">
+            <label class="radio" wx:for="{{items}}">
+              <radio value="{{item.name}}" checked="{{item.checked}}" color="#e74c3c"/>{{item.value}}
+            </label>
+          </radio-group>
+        </view>
+      </view>
+      <view class="weui-panel">
+        <view class="weui-panel__hd" wx:if="{{notSearched && userList.length==0}}">暂时没有回答者坐镇，快来成为这里的第一个回答者！</view>
+        <view class="weui-panel__bd">
+          <view class="userinfo-cell" wx:for="{{userList}}" wx:key="userItem">
+            <view class="content">
+              <view class="userinfo-cell__header">
+                <view class="name">{{item.username}}</view>
+                <view class="subtitle">{{item.university}}</view>
+                <view class="subtitle">{{item.major}}</view>
+                <view class="subtitle">{{item.title}}</view>
+                <view class="ask" bindtap="toAsk" data-id="{{item.objectId}}" data-pic="{{item.userPic}}" data-name="{{item.username}}" data-university="{{item.university}}" data-major="{{item.major}}" data-title="{{item.title}}" data-like="{{item.like}}">
+                  <text >提问</text>
+                  <image src="/image/question.png" style="width: 40rpx;height: 40rpx;margin-left: 10rpx;" data-id="{{item.objectId}}" />
+                </view>
+                <view class="footer">靠谱: {{item.like}}</view>
+              </view>
+            </view>
+            <image class="cover answer" src="{{item.userPic}}"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

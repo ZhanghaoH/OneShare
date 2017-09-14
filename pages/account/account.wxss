@@ -1,0 +1,55 @@
+@import "../common/index.wxss";
+
+.ico {
+  height: 25px;
+  position: absolute;
+  right: 45px;
+  top: 12px;
+  width: 60px;
+}
+
+.navigator-hover button {
+  background-color: #dedede;
+}
+
+.other-navigator-hover button {
+  background-color: #dedede;
+}
+
+.g-bda-userinfo {
+  padding-top: 50rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 180rpx;
+  height: 180rpx;
+  margin: 20rpx;
+  margin-bottom: 2rpx;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.userinfo-nickname {
+  color: #fff;
+}
+
+.btn-auth {
+  border: none;
+  background: none;
+  margin: 0;
+  text-align: left;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 10px 15px 10px 40px;
+}
+
+.btn-auth::after {
+  width: auto;
+  height: auto;
+}

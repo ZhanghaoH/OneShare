@@ -1,0 +1,47 @@
+<view class="page">
+  <scroll-view lower-threshold="800" bindscrolltolower="pullUpLoad" upper-threshold="0" scroll-y="true" style="height: {{windowHeight}}px;  ">
+    <view class="page__bd">
+      <view class="weui-panel">
+        <view class="weui-panel__hd">我的提问</view>
+        <view class="weui-panel__bd">
+          <view class="weui-media-box weui-media-box_text" wx:for="{{qList}}" wx:key="diaryItem">
+            <navigator url="../view/view?questionId={{item.objectId}}" open-type="redirect" hover-class="other-navigator-hover">
+              <view class="weui-media-box__desc">{{item.title}}</view>
+              <view class="weui-media-box__info">
+                <view class="weui-media-box__info__meta weui-media-time">时间：{{item.updatedAt}}</view>
+              </view>
+            </navigator>
+            <!--<view class="weui-media-box__info__meta weui-media-box__info__meta_extra">来源:{{item.publisher}}</view>-->
+            <!--<view class="weui-media-box__info__meta weui-media-box__info__operate">
+                <icon type="cancel" size="16"></icon>
+                <text class="del" bindtap="deleteDiary" data-id="{{item.objectId}}">删除</text>
+                <icon type="success" size="16"></icon>
+                <text bindtap="toModifyDiary" data-id="{{item.objectId}}" data-content="{{item.content}}" data-title="{{item.title}}">编辑</text>
+              </view>-->
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-panel">
+      <view class="weui-panel__hd">我的回答</view>
+      <view class="weui-panel__bd">
+        <view class="weui-media-box weui-media-box_text" wx:for="{{aList}}" wx:key="diaryItem">
+          <navigator url="../view/view?questionId={{item.questionId}}" open-type="redirect" hover-class="other-navigator-hover">
+          <view class="weui-media-box__desc">{{item.content}}</view>
+          <view class="weui-media-box__info">
+            <view class="weui-media-box__info__meta weui-media-time">时间：{{item.updatedAt}}</view>
+            <!--<view class="weui-media-box__info__meta weui-media-box__info__meta_extra">来源:{{item.publisherName}}</view>-->
+            <!--<view class="weui-media-box__info__meta weui-media-box__info__operate">
+                <icon type="cancel" size="16"></icon>
+                <text class="del" bindtap="deleteDiary" data-id="{{item.objectId}}">删除</text>
+                <icon type="success" size="16"></icon>
+                <text bindtap="toModifyDiary" data-id="{{item.objectId}}" data-content="{{item.content}}" data-title="{{item.title}}">编辑</text>
+              </view>-->
+            <!--</view>-->
+          </view>
+          </navigator>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

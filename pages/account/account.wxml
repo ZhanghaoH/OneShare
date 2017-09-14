@@ -1,0 +1,86 @@
+<view class="page">
+  <view class="page__hd i-header">
+    <view class="g-bd">
+      <view></view>
+      <view class="g-bda">
+        <view bindtap="" class="g-bda-userinfo">
+          <image class="userinfo-avatar" src="{{avatarUrl}}"></image>
+          <text class="userinfo-nickname">{{nickName}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="page__bd">
+    <view class="weui-panel">
+      <view class="weui-panel__bd">
+        <view class="weui-media-box weui-media-box_small-appmsg">
+          <view class="weui-cells weui-cells_in-small-appmsg">
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <view class="weui-cell__hd">
+                <image src="/image/edit_profile.png" style="width: 20px;height: 20px;margin-right: 5px;padding-top: 5px" />
+              </view>
+              <view class="weui-cell__bd weui-cell_primary">
+                <button class="btn-auth" style="line-height:1.5" open-type="getUserInfo" bindgetuserinfo="userInfoHandler">回答者认证</button>
+              </view>
+              <image src="{{qualify ? '../../image/rz2.png' : '../../image/wrz2.png'}}" class="ico" mode="aspectFit"></image>
+              <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </view>
+            <navigator url="../notebook/notebook" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <view class="weui-cell__hd">
+                <image src="/image/collect.png" style="width: 20px;height: 20px;margin-right: 5px;padding-top: 5px" />
+              </view>
+              <view class="weui-cell__bd weui-cell_primary">
+                <view>我的问答</view>
+              </view>
+              <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+            <navigator url="askme/askme" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <view class="weui-cell__hd">
+                <image src="/image/ask.png" style="width: 20px;height: 20px;margin-right: 5px;padding-top: 5px" />
+              </view>
+              <view class="weui-cell__bd weui-cell_primary">
+                <view>向我提问的</view>
+              </view>
+              <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+            <!--<navigator url="verify/verify" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <view class="weui-cell__hd">
+                <image src="/image/verified.png" style="width: 20px;height: 20px;margin-right: 5px;padding-top: 5px" />
+              </view>
+              <view class="weui-cell__bd weui-cell_primary">
+                <view>成为回答者</view>
+              </view>
+              <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>-->
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-panel">
+      <view class="weui-panel__bd">
+        <view class="weui-media-box weui-media-box_small-appmsg" style="border-top:1rpx solid #e5e5e5;">
+          <view class="weui-cells weui-cells_in-small-appmsg">
+            <navigator url="feedback/feedback" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <view class="weui-cell__hd">
+                <image src="/image/feedback.png" style="width: 20px;height: 20px;margin-right: 5px;padding-top: 5px" />
+              </view>
+              <view class="weui-cell__bd weui-cell_primary">
+                <view>反馈建议</view>
+              </view>
+              <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+            <navigator url="about/about" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <view class="weui-cell__hd">
+                <image src="/image/about.png" style="width: 20px;height: 20px;margin-right: 5px;padding-top: 5px" />
+              </view>
+              <view class="weui-cell__bd weui-cell_primary">
+                <view>关于壹元知享</view>
+              </view>
+              <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

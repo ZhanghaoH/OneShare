@@ -1,0 +1,55 @@
+<view class="page">
+ <view animation="{{ani}}" style="height:0;opacity:0" class="pop-warn">{{popText}}</view>
+  <!-- 头部 -->
+  <view class="page__hd i-header">
+    <view class="g-bd">
+      <view></view>
+      <view class="g-bda">
+        <view class="g-bda-userinfo">
+          <image class="userinfo-avatar" src="{{avatarUrl}}"></image>
+          <text class="userinfo-nickname">请点击信息栏以完善个人信息完成认证</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="page__bd">
+    <form bindsubmit="updateInfo">
+      <view class="zan-form">
+        <view class="zan-cell zan-form__item" bindtap="toEditName">
+          <text class="zan-form__title">用户名</text>
+          <input bindinput="filter" class="zan-form__content" name="username" value="{{userName}}" placeholder="用户名" maxlength="16"/>
+        </view>
+        <view class="zan-cell zan-form__item" bindtap="toEditPhoneNum">
+          <text class="zan-form__title" type="number">联系电话</text>
+          <input bindinput="filter" class="zan-form__content" name="mobilePhoneNumber" value="{{phoneNum}}" placeholder="电话" maxlength="13"/>
+        </view>
+        <view class="zan-cell zan-form__item" bindtap="toEditEmail">
+          <text class="zan-form__title">电子邮箱</text>
+          <input bindinput="filter" class="zan-form__content" value="{{email}}" placeholder="电子邮箱" name="email"/>
+        </view>
+        <view class="zan-cell zan-form__item" bindtap="toEditArea">
+          <text class="zan-form__title">地区</text>
+          <input bindinput="filter" class="zan-form__content" value="{{area}}" placeholder="所在地区" name="area"/>
+        </view>
+        <view class="zan-cell zan-form__item" bindtap="toEditUniversity">
+          <text class="zan-form__title">学校</text>
+          <input bindinput="filter" class="zan-form__content" value="{{university}}" placeholder="最高学历的母校" name="university"/>
+        </view>
+        <view class="zan-cell zan-form__item" bindtap="toEditMajor">
+          <text class="zan-form__title">专业</text>
+          <input bindinput="filter" class="zan-form__content" value="{{major}}" placeholder="专业" name="major"/>
+        </view>
+        <view class="zan-cell zan-form__item">
+          <text class="zan-form__title">学历</text>
+          <picker class="zan-form__content" mode="selector" range="{{ degree }}" name="title" value="{{titleIndex}}" bindchange="onTitleChange">
+            {{ degree[titleIndex] }}
+          </picker>
+        </view>
+      </view>
+      <view class="btn-area">
+        <button class="btn__primary" form-type="submit">保存</button>
+      </view>
+    </form>
+  </view>
+</view>

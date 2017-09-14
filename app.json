@@ -1,0 +1,53 @@
+{
+  "pages": [
+    "pages/discover/discover",  
+    "pages/account/account",
+    "pages/view/view",  
+    "pages/viewAnswer/viewAnswer",
+    "pages/search/search",
+    "pages/account/profile/profile",
+    "pages/account/profile2/profile2",
+    "pages/account/about/about",
+    "pages/account/protocol/protocol",
+    "pages/account/askme/askme",
+    "pages/ask/ask",
+    "pages/answer/answer",
+    "pages/account/verify/verify",
+    "pages/account/feedback/feedback",
+    "pages/notebook/notebook",
+    "pages/pay/pay"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#e74c3c",
+    "navigationBarTitleText": "壹元知享",
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#e74c3c",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/discover/discover",
+        "iconPath": "image/binocular.png",
+        "selectedIconPath": "image/binocularHL.png",
+        "text": "围观"
+      },
+      {
+        "pagePath": "pages/search/search",
+        "iconPath": "image/search.png",
+        "selectedIconPath": "image/searchHL.png",
+        "text": "定位"
+      },
+      {
+        "pagePath": "pages/account/account",
+        "iconPath": "image/profile.png",
+        "selectedIconPath": "image/profileHL.png",
+        "text": "我"
+      }
+    ]
+  }
+}

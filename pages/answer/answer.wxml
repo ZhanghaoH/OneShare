@@ -1,0 +1,61 @@
+<loading hidden="{{loading}}">
+  页面初始化中...
+</loading>
+<loading hidden="{{published}}">
+  问题发布中...
+</loading>
+<scroll-view scroll-y="true" class="timeline">
+  <view class="tweet-container">
+    <view class="top-container flex-row">
+      <image class="card-avatar" src="{{publisherPic}}"></image>
+      <view class="user-container">
+        <text class="card-name">{{title}}</text>
+        <view class="label-container">
+          <text class="card-view"> {{publisher}}</text>
+          <text class="card-time"> | </text>
+          <image src="/image/ask-title.png" style="width: 18px;height: 18px;margin-left: 10px;"></image>
+          <text class="card-label">#{{label}}</text>
+          <text class="card-time"> | </text>
+          <text class="card-answer"> 回答：{{answerNum}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="middle-container flex-column ">
+      <text class="message-text ">{{qContent}}</text>
+    </view>
+  </view>
+  <view class="weui-panel">
+    <view class="weui-panel__bd">
+      <!--<view class="answerer-container">
+        <view class="top-container flex-row">
+          <image class="answerer-avatar" src="{{answererPic}}"></image>
+          <view class="user-container">
+            <text class="card-name">{{answerer}}</text>
+            <view class="label-container">
+              <image src="/image/answer-title.png" style="width: 18px;height: 18px;margin-left: 10px;padding-top: 5px"></image>
+              <text class="card-subtitle">{{university}}</text>
+            </view>
+            <view class="label-container">
+              <text class="card-subtitle__below">{{major}}</text>
+            </view>
+            <view class="label-container">
+              <text class="card-subtitle__below">{{answererTitle}}</text>
+              <text class="card-time__below"> | </text>
+              <text class="card-like">靠谱：{{likeNum}}</text>
+            </view>
+          </view>
+        </view>
+      </view>-->
+      <view class="addConent">
+        <textarea placeholder="写出你的回答" maxlength="-1" auto-focus="true" bindinput="setContent" />
+      </view>
+    </view>
+  </view>
+  <!--<label for="changePublic" >
+    <switch checked="{{isPublic}}" bindchange="changePublic" type="checkbox" name="is_hide" />
+    <text>同意公开</text>
+  </label>-->
+  <view class="btn-area">
+    <button bindtap="sendNewAnswer" data-content="{{aContent}}" hover-start-time="200">发布</button>
+  </view>
+</scroll-view>

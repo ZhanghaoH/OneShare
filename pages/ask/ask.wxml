@@ -1,0 +1,41 @@
+<loading hidden="{{published}}">
+  问题发布中...
+</loading>
+<view class="top-panel">
+  <!--<view class="hd" wx:if="{{!isPersonal}}">公共问题</view>
+  <view class="hd" wx:if="{{isPersonal}}">指定回答</view>-->
+  <view class="userinfo-cell" wx:if="{{caller}}">
+    <view class="content">
+      <view class="userinfo-cell__header">
+        <view class="name">{{caller.username}}</view>
+        <view class="subtitle">{{caller.university}}</view>
+        <view class="subtitle">{{caller.major}}</view>
+        <view class="subtitle">{{caller.title}}</view>
+        <view class="footer">靠谱: {{caller.like}}</view>
+      </view>
+    </view>
+    <image class="cover" src="{{caller.userPic}}"></image>
+  </view>
+</view>
+<form bindsubmit="sendNewQuestion" report-submit="true">
+  <view class="weui-panel">
+    <view class="weui-panel__bd">
+      <input placeholder="输入标题" class="add_title" bindinput="setTitle" />
+      <view class="picker-cell">
+        <picker class="zan-form__content" mode="selector" range="{{ label }}" value="{{ labelIndex }}" bindchange="onLabelChange">
+          {{ label[labelIndex] }}
+        </picker>
+      </view>
+      <view class="addConent">
+        <textarea placeholder="提出你的问题" maxlength="1000" bindinput="setContent" />
+      </view>
+    </view>
+  </view>
+  <!--<label for="changePublic" hidden="{{!isPersonal}}">
+  <switch checked="{{isPublic}}" bindchange="changePublic" type="checkbox" name="is_hide" />
+  <text>同意公开</text>
+</label>-->
+  <view class="btn-area">
+    <button form-type="submit" data-content="{{content}}" data-title="{{title}}" hover-start-time="200">发布</button>
+  </view>
+</form>
