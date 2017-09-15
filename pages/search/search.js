@@ -31,7 +31,7 @@ Page({
       { name: 'university', value: '学校' },
       { name: 'major', value: '专业' },
       // { name: 'username', value: '用户名' },
-      { name: 'area', value: '地区'},
+      { name: 'area', value: '地区' },
     ]
   },
   onShareAppMessage: function () {
@@ -86,8 +86,6 @@ Page({
   },
   search: function () {
     that = this;
-    that.setData({
-    });
     var query = new Bmob.Query(User);
     query.limit(that.data.limit);
     query.equalTo(that.data.condition, { "$regex": "" + that.data.inputValue + ".*" });
@@ -130,15 +128,9 @@ Page({
     that = this;
     that.setData({
       condition: "title",
+      userId: wx.getStorageSync("user_id")
     })
-  },
-  noneWindows: function () {
-    console.log("3");
-
-    that.setData({
-      writeDiary: "",
-      modifyDiarys: ""
-    })
+    that.search()
   },
   onShow: function () {
     console.log("3");
@@ -201,10 +193,16 @@ Page({
   toAsk: function (event) {
     var dataset = event.currentTarget.dataset;
     console.log(event);
-    var user = { "id": dataset.id, "pic": dataset.pic, "name": dataset.name, "university": dataset.university, "major": dataset.major, "title": dataset.title, "like": dataset.like }
-    wx.navigateTo({
-      url: '../ask/ask?answerer=' + dataset.id,
-    })
+    if (dataset.id == that.data.userId) {
+      wx.switchTab({
+        url: '../account/account',
+      })
+    } else {
+      var user = { "id": dataset.id, "pic": dataset.pic, "name": dataset.name, "university": dataset.university, "major": dataset.major, "title": dataset.title, "like": dataset.like }
+      wx.navigateTo({
+        url: '../ask/ask?answerer=' + dataset.id,
+      })
+    }
   },
 
 })

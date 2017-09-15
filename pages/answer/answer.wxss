@@ -40,14 +40,14 @@
 
 .addConent textarea {
   width: 100%;
-  height: 200rpx;
+  /* height: 200rpx; */
 }
 
 .addConent {
   padding-top: 30rpx;
   overflow: hidden;
   margin-bottom: 30rpx;
-  height: 300rpx;
+  /* height: 300rpx; */
 }
 
 label {

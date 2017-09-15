@@ -15,6 +15,11 @@ button{
   margin-top: 20rpx;
   margin-bottom: 20rpx;
 }
+.button-hover {
+  background-color:  #e74c3c;
+  color: #fff;
+  opacity: .6
+}
 form{
   width: 100%;
 }

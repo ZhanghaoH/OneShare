@@ -1,13 +1,13 @@
 //获取应用实例
-var app = getApp()
-var Bmob = require("../../utils/bmob.js");
-var common = require('../../utils/common.js');
-var dboperation = require('../../utils/DBOperation.js');
-var pay = require('../../utils/pay.js');
-var that;
+const app = getApp()
+const Bmob = require("../../utils/bmob.js");
+const common = require('../../utils/common.js');
+const dboperation = require('../../utils/DBOperation.js');
+const pay = require('../../utils/pay.js');
+var that, tempQ;
 Page({
   data: {
-    isPublic: false,
+    isPublic: true,
     label: ["请选择问答板块", "初中", "高中", "本科", "硕士", "博士", "其它"],
     labelIndex: "0",
     askerId: "",
@@ -16,45 +16,34 @@ Page({
     title: "",
     thisLabel: "",
     content: "",
-    ishide: false,
-    autoFocus: true,
-    published: true,
+    published: false,
+    hidden: true,
+    showTopTips: false,
+    topTips:"" 
   },
   onLoad: function (options) {
     that = this;
     var userId = wx.getStorageSync("user_id"); //获取用户id
-    // 是否指定回答者
+
+    // answerer存在，则是指定回答者,需要加载用户信息
     if (options.answerer) {
-      var tmpUser = options.answerer;
+      let tmpUser = options.answerer;
       dboperation.getUser(tmpUser).then(resData => {
         console.log(resData);
         that.setData({
           caller: resData,
           callerId: tmpUser,
           isPublic: false,
+          hidden: false,
         });
       })
     }
 
-  },
-  onReady: function () {
-    wx.hideToast()
-  },
-  onShow: function () {
-    var myInterval = setInterval(getReturn, 500);
-    function getReturn() {
-      wx.getStorage({
-        key: 'user_openid',
-        success: function (ress) {
-          if (ress.data) {
-            clearInterval(myInterval)
-            that.setData({
-              loading: true
-            })
-          }
-        }
-      })
+    // questionId存在则是修改问题，存下答案id发布问题时修改问题而非增加问题
+    if (options.questionId){
+      tempQ = options.questionId;
     }
+
   },
   onShareAppMessage: function () {
     return {
@@ -63,54 +52,28 @@ Page({
       path: '/pages/discover/discover'
     }
   },
+  // 提问时公私问转换
   changePublic: function (e) {//switch开关
     that = this;
     console.log(e.detail.value)
     if (e.detail.value == true) {
-      wx.showModal({
-        title: '公开问答',
-        content: '您已将该问答设为公开（公开的问题将在围观模块出现，并且围观收入会进入你的钱包）',
-        showCancel: true,
-        confirmColor: "#e74c3c",
-        cancelColor: "#646464",
-        success: function (res) {
-          if (res.confirm) {
-            that.setData({
-              ishide: false
-            })
-          }
-          else {
-            that.setData({
-              isPublic: true
-            })
-          }
-        }
+      wx.showToast({
+        title: '问答已公开',
+        icon: 'success',
+        duration: 1500,
+        mask: true,
       })
-
-    }
-    else {
-      wx.showModal({
-        title: '私有问答',
-        content: '您已将该问答设为私有（私有的问答将从围观模块消失，并且不会有围观收入）',
-        showCancel: true,
-        confirmColor: "#e74c3c",
-        cancelColor: "#646464",
-        success: function (res) {
-          if (res.confirm) {
-            that.setData({
-              ishide: true
-            })
-          }
-          else {
-            that.setData({
-              isPublic: false
-            })
-          }
-        }
+    }else {
+      wx.showToast({
+        title: '问答已隐藏',
+        icon: 'success',
+        duration: 1500,
+        mask: true,
       })
-
     }
-
+    that.setData({
+      isPublic: e.detail.value
+    })
   },
   onLabelChange: function (e) {
     that = this;
@@ -125,7 +88,6 @@ Page({
         labelIndex: mody,
       })
     }
-    that.onShow();
   },
   setContent: function (e) {//问题内容
     that.setData({
@@ -137,6 +99,19 @@ Page({
       title: e.detail.value
     })
   },
+  showTopTips: function (str) {
+    var that = this;
+    this.setData({
+      showTopTips: true,
+      topTips: str
+    });
+    setTimeout(function () {
+      that.setData({
+        showTopTips: false,
+        topTips: ""
+      });
+    }, 3000);
+  },
   sendNewQuestion: function (e) {//发布问题
     that = this;
     var content = that.data.content;
@@ -145,25 +120,26 @@ Page({
     var formId = e.detail.formId;
     // that.inform(formId);
     if (title == "") {
-      common.showModal("标题不能为空");
+      that.showTopTips("标题不能为空");
       return;
     }
     else if (labelIndex == 0) {
-      common.showModal("请选择问答板块");
+      that.showTopTips("请选择问答板块");
       return;
     }
     else if (content == "") {
-      common.showModal("问题内容不能为空");
+      that.showTopTips("问题内容不能为空");
       return;
     }
     else {
+      wx.showLoading({
+        title: '问题发布中...',
+        mask: true,
+      })
       wx.getStorage({
         key: 'user_openid',
         success: function (res) {
           pay.pay(0.01, '问题支付', '您将为发布问题支付相应费用', res.data).then(() => {
-            that.setData({
-              published: false,
-            })
             wx.getStorage({
               key: 'user_id',
               success: function (ress) {
@@ -178,13 +154,11 @@ Page({
                     publisherName = result.get("username");
                     question.set("title", title);
                     question.set("content", content);
-                    question.set("isPublic", !that.data.ishide);
+                    question.set("isPublic", that.data.isPublic);
                     question.set("caller", that.data.callerId);
                     question.set("publisher", publisherName);
                     question.set("publisherPic", publisherPic);
-                    // question.set("isPersonal", that.data.isPersonal);
                     question.set("label", that.data.label[that.data.labelIndex]);
-                    // question.set("viewNum", 0);
                     question.set("answerNum", 0);
                     question.set("publisherId", ress.data);
                     question.set("answers", []);
@@ -193,9 +167,7 @@ Page({
                     console.log(question);
                     question.save(null, {
                       success: function (result) {
-                        that.setData({
-                          published: true
-                        });
+                        wx.hideLoading();
                         wx.switchTab({
                           url: '../discover/discover',
                         });

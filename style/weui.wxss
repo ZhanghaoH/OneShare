@@ -1382,7 +1382,7 @@ icon {
   color: #d9d9d9;
 }
 
-.userinfo-cell:after {
+/* .userinfo-cell:after {
   content: " ";
   position: absolute;
   left: 15px;
@@ -1391,7 +1391,7 @@ icon {
   border-bottom: 1rpx solid #d9d9d9;
   height: 1px;
   color: #d9d9d9;
-}
+} */
 
 .userinfo-cell .content {
   margin-left: 210rpx;

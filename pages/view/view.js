@@ -136,15 +136,17 @@ Page({
     switch (tipId) {
       // 回答问题
       case 0:
-
+        that.toAnswer();
         break;
       // 补充问题
       case 1:
+
         break;
       // 完善答案
       case 2:
         break;
       default:
+        that.toViewAnswerPage();
         break;
     }
   },
@@ -176,12 +178,27 @@ Page({
       },
     })
   },
+  // 问题下的功能操作
   toAnswer: function (event) {
-    wx.navigateTo({
-      url: '../answer/answer?questionId=' + that.data.qId,
-      complete: function (res) {
-        // complete
-      }
-    })
+    var tipId = that.tipStr.id;
+    switch (tipId) {
+      // 回答问题
+      case 0:
+        wx.navigateTo({
+          url: '../answer/answer?questionId=' + that.data.qId,
+        })
+        break;
+      // 补充问题
+      case 1:
+        wx.navigateTo({
+          url: '../ask/ask?questionId=' + that.data.qId,
+        })
+        break;
+      // 完善答案
+      case 2:
+        break;
+      default:
+        break;
+    }
   },
 })

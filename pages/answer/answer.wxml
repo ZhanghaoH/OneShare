@@ -4,7 +4,6 @@
 <loading hidden="{{published}}">
   问题发布中...
 </loading>
-<scroll-view scroll-y="true" class="timeline">
   <view class="tweet-container">
     <view class="top-container flex-row">
       <image class="card-avatar" src="{{publisherPic}}"></image>
@@ -47,7 +46,7 @@
         </view>
       </view>-->
       <view class="addConent">
-        <textarea placeholder="写出你的回答" maxlength="-1" auto-focus="true" bindinput="setContent" />
+        <textarea placeholder="写出你的回答" maxlength="250" auto-focus="true" bindinput="setContent" />
       </view>
     </view>
   </view>
@@ -58,4 +57,3 @@
   <view class="btn-area">
     <button bindtap="sendNewAnswer" data-content="{{aContent}}" hover-start-time="200">发布</button>
   </view>
-</scroll-view>

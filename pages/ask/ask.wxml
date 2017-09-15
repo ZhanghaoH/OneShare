@@ -1,9 +1,6 @@
-<loading hidden="{{published}}">
-  问题发布中...
-</loading>
+<view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{topTips}}</view>
 <view class="top-panel">
-  <!--<view class="hd" wx:if="{{!isPersonal}}">公共问题</view>
-  <view class="hd" wx:if="{{isPersonal}}">指定回答</view>-->
+  <!-- line 1385 -->
   <view class="userinfo-cell" wx:if="{{caller}}">
     <view class="content">
       <view class="userinfo-cell__header">
@@ -18,23 +15,30 @@
   </view>
 </view>
 <form bindsubmit="sendNewQuestion" report-submit="true">
-  <view class="weui-panel">
-    <view class="weui-panel__bd">
-      <input placeholder="输入标题" class="add_title" bindinput="setTitle" />
-      <view class="picker-cell">
-        <picker class="zan-form__content" mode="selector" range="{{ label }}" value="{{ labelIndex }}" bindchange="onLabelChange">
-          {{ label[labelIndex] }}
-        </picker>
+  <!-- <view class="weui-panel"> -->
+  <view class="weui-cells">
+    <view class='weui-cell'>
+      <input placeholder="输入标题" class="weui_input" bindinput="setTitle" />
+    </view>
+    <view class="weui-cell">
+      <picker class="zan-form__content" mode="selector" range="{{ label }}" value="{{ labelIndex }}" bindchange="onLabelChange">
+        {{ label[labelIndex] }}
+      </picker>
+    </view>
+    <view class="weui-cell">
+      <view class='weui-cell__bd'>
+        <textarea class='weui-textarea' placeholder="提出你的问题" maxlength="250" bindinput="setContent" />
       </view>
-      <view class="addConent">
-        <textarea placeholder="提出你的问题" maxlength="1000" bindinput="setContent" />
+    </view>
+    <view class="weui-cell weui-cell_switch" hidden="{{hidden}}">
+      <view class="weui-cell__bd">提问是否公开</view>
+      <view class="weui-cell__ft">
+        <switch bindchange="changePublic" />
       </view>
     </view>
   </view>
-  <!--<label for="changePublic" hidden="{{!isPersonal}}">
-  <switch checked="{{isPublic}}" bindchange="changePublic" type="checkbox" name="is_hide" />
-  <text>同意公开</text>
-</label>-->
+  <view class="weui-cells__tips" hidden="{{hidden}}">*公开问答将会有围观收益，别人也将看到你得问题。该选项仅指定回答者时可选，私问在“我的问答”可查看。</view>
+  <!-- </view> -->
   <view class="btn-area">
     <button form-type="submit" data-content="{{content}}" data-title="{{title}}" hover-start-time="200">发布</button>
   </view>
