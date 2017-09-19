@@ -11,15 +11,14 @@ Page({
     label: ["请选择问答板块", "初中", "高中", "本科", "硕士", "博士", "其它"],
     labelIndex: "0",
     askerId: "",
-    src: "",
-    isSrc: false,
+    isAddition: false,
     title: "",
     thisLabel: "",
     content: "",
     published: false,
     hidden: true,
     showTopTips: false,
-    topTips:"" 
+    topTips: ""
   },
   onLoad: function (options) {
     that = this;
@@ -40,8 +39,22 @@ Page({
     }
 
     // questionId存在则是修改问题，存下答案id发布问题时修改问题而非增加问题
-    if (options.questionId){
+    if (options.questionId) {
       tempQ = options.questionId;
+      that.setData({
+        isAddition: true
+      })
+      dboperation.getById("Question", tempQ).then(res => {
+        console.log(res);
+        let arrLabel = that.data.label
+        let quesLabel = res.get("label")
+        let i = arrLabel.indexOf(quesLabel)
+        that.setData({
+          title: res.get("title"),
+          content: res.get("content"),
+          labelIndex: i
+        })
+      })
     }
 
   },
@@ -63,7 +76,7 @@ Page({
         duration: 1500,
         mask: true,
       })
-    }else {
+    } else {
       wx.showToast({
         title: '问答已隐藏',
         icon: 'success',
@@ -136,74 +149,121 @@ Page({
         title: '问题发布中...',
         mask: true,
       })
-      wx.getStorage({
-        key: 'user_openid',
+      that.data.isAddition ? that.changeQuestion() : that.createQuestion()
+    }
+  },
+  changeQuestion() {
+    console.log("change")
+    let content = that.data.content;
+    let title = that.data.title;
+    let labelIndex = that.data.labelIndex;
+    let data = { "title": title, "content": content, "label": that.data.label[that.data.labelIndex] }
+    let data2 = { "label": that.data.label[that.data.labelIndex] };
+    let ques = dboperation.change("Question", tempQ, data).then(() =>{
+    // let ans = dboperation.change("Answer", tempQ, data2)
+    // Promise.all([ques, ans]).then(() => {
+      wx.hideLoading();
+      wx.showToast({
+        title: '修改成功',
+        icon: 'success',
+        image: '',
+        duration: 1500,
+        mask: true,
         success: function (res) {
-          pay.pay(0.01, '问题支付', '您将为发布问题支付相应费用', res.data).then(() => {
-            wx.getStorage({
-              key: 'user_id',
-              success: function (ress) {
-                var Question = Bmob.Object.extend("Question");
-                var question = new Question();
-                var query = new Bmob.Query(Bmob.User);
-                var publisherPic = '';
-                var publisherName = '';
-                query.get(ress.data, {
-                  success: function (result) {
-                    publisherPic = result.get("userPic");
-                    publisherName = result.get("username");
-                    question.set("title", title);
-                    question.set("content", content);
-                    question.set("isPublic", that.data.isPublic);
-                    question.set("caller", that.data.callerId);
-                    question.set("publisher", publisherName);
-                    question.set("publisherPic", publisherPic);
-                    question.set("label", that.data.label[that.data.labelIndex]);
-                    question.set("answerNum", 0);
-                    question.set("publisherId", ress.data);
-                    question.set("answers", []);
-                    // question.set("isAnswered", false);
-                    // question.set("answerer", that.data.user);
-                    console.log(question);
-                    question.save(null, {
-                      success: function (result) {
-                        wx.hideLoading();
-                        wx.switchTab({
-                          url: '../discover/discover',
-                        });
-                        // that.inform(formId);
-                        // 添加成功，返回成功之后的objectId（注意：返回的属性名字是id，不是objectId），你还可以在Bmob的Web管理后台看到对应的数据
-                        // common.showTip("成功发布问题", "success", function () {
-                        //   wx.hideToast()
-                        //   wx.redirectTo({
-                        //     url: '../notebook/notebook',
-                        //     complete: function (res) {
-                        //       // complete
-                        //     }
-                        //   })
-                        // });
-                      },
-                      error: function (result, error) {
-                        // 添加失败
-                        console.log(error)
-                        common.showModal("发布问题失败");
-                        that.setData({
-                          published: true
-                        })
-
-                      }
-                    });
-                  },
-                  error: function (error) {
-                  }
-                });
-              }
-            })
-
-          })
+          wx.switchTab({
+            url: '../discover/discover',
+          });
         },
       })
-    }
+    }).catch(() => {
+      wx.hideLoading();
+      wx.showToast({
+        title: '补充问题失败失败',
+        icon: 'success',
+        image: '',
+        duration: 1500,
+        mask: true,
+      })
+    })
+  },
+  // 生成新问题
+  createQuestion: function () {
+    console.log("create")
+    let content = that.data.content;
+    let title = that.data.title;
+    let labelIndex = that.data.labelIndex;
+    wx.getStorage({
+      key: 'user_openid',
+      success: function (res) {
+        pay.pay(0.01, '问题支付', '您将为发布问题支付相应费用', res.data).then(() => {
+          wx.getStorage({
+            key: 'user_id',
+            success: function (ress) {
+              var Question = Bmob.Object.extend("Question");
+              var question = new Question();
+              var query = new Bmob.Query(Bmob.User);
+              var publisherPic = '';
+              var publisherName = '';
+              query.get(ress.data, {
+                success: function (result) {
+                  publisherPic = result.get("userPic");
+                  publisherName = result.get("username");
+                  question.set("title", title);
+                  question.set("content", content);
+                  question.set("isPublic", that.data.isPublic);
+                  question.set("caller", that.data.callerId);
+                  question.set("publisher", publisherName);
+                  question.set("publisherPic", publisherPic);
+                  question.set("label", that.data.label[that.data.labelIndex]);
+                  question.set("answerNum", 0);
+                  question.set("publisherId", ress.data);
+                  question.set("answers", []);
+                  console.log(question);
+                  question.save(null, {
+                    success: function (result) {
+                      wx.hideLoading();
+                      wx.switchTab({
+                        url: '../discover/discover',
+                      });
+                      // that.inform(formId);
+                      // 添加成功，返回成功之后的objectId（注意：返回的属性名字是id，不是objectId），你还可以在Bmob的Web管理后台看到对应的数据
+                      // common.showTip("成功发布问题", "success", function () {
+                      //   wx.hideToast()
+                      //   wx.redirectTo({
+                      //     url: '../notebook/notebook',
+                      //     complete: function (res) {
+                      //       // complete
+                      //     }
+                      //   })
+                      // });
+                    },
+                    error: function (result, error) {
+                      // 添加失败
+                      console.log(error)
+                      common.showModal("发布问题失败");
+                      that.setData({
+                        published: true
+                      })
+
+                    }
+                  });
+                },
+                error: function (error) {
+                }
+              });
+            }
+          })
+        }).catch(() => {
+          wx.showToast({
+            title: '付款失败',
+            icon: 'success',
+            image: '',
+            duration: 1500,
+            mask: true,
+          })
+        })
+      },
+    })
   },
   inform: function (formId) {
     console.log(formId);

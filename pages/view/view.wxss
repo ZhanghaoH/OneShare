@@ -147,6 +147,7 @@ view, scroll-view, input, text {
 .flex-row {
   display: flex;
   flex-direction: row;
+  align-items: center
 }
 
 .flex-rest-width {
@@ -238,7 +239,7 @@ view, scroll-view, input, text {
   font-size: 26rpx;
   color: #8999a5;
   margin-top: 8rpx;
-  margin-left: 10px;
+  margin-left: 8px;
   width: 160rpx;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -308,7 +309,7 @@ view, scroll-view, input, text {
   display: flex;
   flex-direction: row;
   align-items: center;
-  line-height: 26px;
+  /* line-height: 26px; */
 }
 
 .answer-container {

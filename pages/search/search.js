@@ -41,40 +41,6 @@ Page({
       path: '/pages/discover/discover'
     }
   },
-  /*
-* 获取数据
-*/
-  // function getList(t, k){
-  //   that = t;
-  //   var Diary = Bmob.Object.extend("diary");
-  //   var query = new Bmob.Query(Diary);
-
-  //   //会员模糊查询
-  //   if(k) {
-  //     query.equalTo("title", { "$regex": "" + k + ".*" });
-  //   }
-
-  //    //普通会员匹配查询
-  //   // query.equalTo("title", k);
-
-
-  //   query.descending('createdAt');
-  //   query.include("own")
-  //   // 查询所有数据
-  //   query.limit(that.data.limit);
-  //   query.find({
-  //     success: function (results) {
-  //       // 循环处理查询到的数据
-  //       console.log(results);
-  //       that.setData({
-  //         diaryList: results
-  //       })
-  //     },
-  //     error: function (error) {
-  //       console.log("查询失败: " + error.code + " " + error.message);
-  //     }
-  //   });
-  // },
   radioChange: function (e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value);
     that.setData({
@@ -84,12 +50,13 @@ Page({
       that.search();
     }
   },
+  // 条件查询
   search: function () {
     that = this;
     var query = new Bmob.Query(User);
     query.limit(that.data.limit);
     query.equalTo(that.data.condition, { "$regex": "" + that.data.inputValue + ".*" });
-    // query.equalTo(that.data.condition, that.data.inputValue);
+    query.equalTo("verified",true)
     query.find({
       success: function (results) {
         if (results.length == 0) {
@@ -200,7 +167,7 @@ Page({
     } else {
       var user = { "id": dataset.id, "pic": dataset.pic, "name": dataset.name, "university": dataset.university, "major": dataset.major, "title": dataset.title, "like": dataset.like }
       wx.navigateTo({
-        url: '../ask/ask?answerer=' + dataset.id,
+        url: '../askpro/askpro?answerer=' + dataset.id,
       })
     }
   },

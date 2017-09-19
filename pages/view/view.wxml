@@ -1,19 +1,19 @@
 <loading hidden="{{published}}">
   问题发布中...
 </loading>
-<view class="btn-fixed-bottom" bindtap="toAnswer" disabled="istoAnswer">{{ tipStr.text }}</view>
+<view class="btn-fixed-bottom" bindtap="toAnswer" hidden="{{istoAnswer}}">{{ tipStr.text }}</view>
 <view class="question-container">
   <view class="top-container flex-row">
     <image class="card-avatar" src="{{publisherPic}}"></image>
     <view class="user-container">
       <text class="card-name">{{title}}</text>
       <view class="label-container">
-        <text class="card-view">{{publisher}}</text>
-        <text class="card-time"> | </text>
+        <view class="card-view">{{publisher}}</view>
+        <view class="card-time"> | </view>
         <image src="/image/ask-title.png" style="width: 18px;height: 18px;margin-left: 10px;"></image>
-        <text class="card-label">#{{label}}</text>
-        <text class="card-time"> | </text>
-        <text class="card-answer"> 回答：{{answerNum}}</text>
+        <view class="card-label">#{{label}}</view>
+        <view class="card-time"> | </view>
+        <view class="card-answer"> 回答：{{answerNum}}</view>
       </view>
     </view>
   </view>
@@ -32,12 +32,12 @@
           <text class="card-time">{{item.publisher}}</text>
         </view>
         <view class="label-container">
+          <view class="card-view">围观：{{item.viewNum}}</view>
+          <view class="card-time"> | </view>
           <image src="/image/answer-title.png" style="width: 18px;height: 18px;margin-left: 10px;flex:none"></image>
-          <text class="card-view" style="margin-left:0">#{{item.label}}</text>
-          <text class="card-time"> | </text>
-          <text class="card-view">围观：{{item.viewNum}}</text>
-          <text class="card-time__below"> | </text>
-          <text class="card-like">靠谱：{{item.like}}</text>
+          <view class="card-view" >#{{item.label}}</view>
+          <view class="card-time__below"> | </view>
+          <view class="card-like">靠谱：{{item.like}}</view>
         </view>
       </view>
     </view>

@@ -281,7 +281,7 @@ view, scroll-view, input, text {
   height: 100rpx;
   border-radius: 50%;
   margin-left: 15rpx;
-  margin-top: 15rpx;
+  /* margin-top: 15rpx; */
 }
 
 .card-time {

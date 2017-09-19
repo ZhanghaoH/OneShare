@@ -115,16 +115,17 @@ Page({
         isLoading: true,
         published: false
       });
-      console.log(that.data.qId);
       var answers = that.data.answerList;
-      var obj = [].push({ "id": that.data.user_id, "isScored": false});
+      var arr = [];
+      arr.push({ "id": that.data.user_id, "isScored": false});
+      console.log(arr);
       var answerObj = { 
         "questionId": that.data.qId, 
         "publisherId": that.data.user_id, 
         "content": content, 
         "viewNum": 0, 
         "viewArr": [], 
-        "paiedId": obj,
+        "paiedId": arr,
         "label": that.data.answererTitle,
         "major": that.data.major,
         "like": that.data.like,

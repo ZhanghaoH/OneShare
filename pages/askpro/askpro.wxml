@@ -18,7 +18,7 @@
   <!-- <view class="weui-panel"> -->
   <view class="weui-cells">
     <view class='weui-cell'>
-      <input placeholder="输入标题" value="{{title}}" class="weui_input" bindinput="setTitle" />
+      <input placeholder="输入标题" class="weui_input" bindinput="setTitle" />
     </view>
     <view class="weui-cell">
       <picker class="zan-form__content" mode="selector" range="{{ label }}" value="{{ labelIndex }}" bindchange="onLabelChange">
@@ -27,7 +27,7 @@
     </view>
     <view class="weui-cell">
       <view class='weui-cell__bd'>
-        <textarea class='weui-textarea' value='{{content}}' placeholder="提出你的问题" maxlength="250" bindinput="setContent" />
+        <textarea class='weui-textarea' placeholder="提出你的问题" maxlength="250" bindinput="setContent" />
       </view>
     </view>
     <view class="weui-cell weui-cell_switch" hidden="{{hidden}}">
@@ -37,7 +37,7 @@
       </view>
     </view>
   </view>
-  <view class="weui-cells__tips" >*问题将以公开形式展示在主页供大家浏览回答，若想指定回答者，建议去搜索页检索回答着操作。</view>
+  <view class="weui-cells__tips" hidden="{{hidden}}">*公开问答将会有围观收益，别人也将看到你得问题。该选项仅指定回答者时可选，私问在“我的问答”可查看。</view>
   <!-- </view> -->
   <view class="btn-area">
     <button form-type="submit" data-content="{{content}}" data-title="{{title}}" hover-start-time="200">发布</button>

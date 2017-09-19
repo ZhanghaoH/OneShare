@@ -11,6 +11,7 @@
     "pages/account/protocol/protocol",
     "pages/account/askme/askme",
     "pages/ask/ask",
+    "pages/askpro/askpro",
     "pages/answer/answer",
     "pages/account/verify/verify",
     "pages/account/feedback/feedback",

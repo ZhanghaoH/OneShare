@@ -4,7 +4,7 @@ var Bmob = require("../../utils/bmob.js");
 var common = require('../../utils/common.js');
 var dboperation = require('../../utils/DBOperation.js');
 var currentUser;
-var that;
+var that, aid, qid;
 Page(
   {
     data: {
@@ -29,8 +29,8 @@ Page(
     onLoad: function (options) {
       that = this;
       console.log(JSON.stringify(options.answer))
-      var aid = JSON.parse(options.answer).id;
-      var qid = JSON.parse(options.answer).qid;
+      aid = JSON.parse(options.answer).id;
+      qid = JSON.parse(options.answer).qid;
       wx.showLoading({
         title: '页面加载中...',
       });
@@ -65,33 +65,33 @@ Page(
         });
         let viewArr = resData.get("paiedId");
         let userId = currentUser.id;
-        for(let i = 0, len = viewArr.length; i < len ; i++){
-          if(viewArr[i].id == userId){
+        for (let i = 0, len = viewArr.length; i < len; i++) {
+          if (viewArr[i].id == userId) {
             that.setData({
-              scored: viewArr[i].scored 
+              scored: viewArr[i].isScored
             })
           }
         }
         // if(that.data.answer.publisherId != currentUser.id){
-          // var viewArr = that.data.answer.viewArr || [];
-          // console.log(viewArr);
-          // viewArr.push(currentUser.id);
-          // var viewNum = viewArr.length;
-          // console.log(viewArr);
-          // console.log(currentUser.id);
-          // var data = {"viewArr":viewArr,"viewNum":viewNum};
-          // console.log(data);
-          // var _as = dboperation.change("Answers",aid,data).then( () => {
-          //   wx.hideLoading();
-          // }) 
-          // var _a = dboperation.getBy("Answers","punlisherId",that.data.answer.publisherId).then(resData => {
-          //   resData.map(e => {
-          //     dboperation.change("Answers", e.id, { "viewNum": viewNum});
-          //   });
-          // });
-          // var _u = dboperation.getUser(that.data.answer.publisherId).then(resData => {
-          //   dboperation.change("_User", resData.id, { "viewNum": viewNum });
-          // });
+        // var viewArr = that.data.answer.viewArr || [];
+        // console.log(viewArr);
+        // viewArr.push(currentUser.id);
+        // var viewNum = viewArr.length;
+        // console.log(viewArr);
+        // console.log(currentUser.id);
+        // var data = {"viewArr":viewArr,"viewNum":viewNum};
+        // console.log(data);
+        // var _as = dboperation.change("Answers",aid,data).then( () => {
+        //   wx.hideLoading();
+        // }) 
+        // var _a = dboperation.getBy("Answers","punlisherId",that.data.answer.publisherId).then(resData => {
+        //   resData.map(e => {
+        //     dboperation.change("Answers", e.id, { "viewNum": viewNum});
+        //   });
+        // });
+        // var _u = dboperation.getUser(that.data.answer.publisherId).then(resData => {
+        //   dboperation.change("_User", resData.id, { "viewNum": viewNum });
+        // });
         // }
       });
       //  Promise.all([q, a]).then((resData) => {
@@ -152,29 +152,39 @@ Page(
       console.log("modify score to: " + that.data.score);
       var answer = that.data.answer.attributes;
       var score = that.data.score + answer.like;
-      var data = { "like": score};
       console.log(answer.like);
-      var ap = dboperation.change("Answers", that.data.aid, data);
-      var up = dboperation.change("_User", that.data.publisherId, data);
-      Promise.all([ap, up]).then((res) => {
-        console.log(res);
-        that.setData({
-          answer: res[0],
-          giveScore: false,
-          score: score,
-        });
-        wx.showModal({
-          title: '提示',
-          content: '打分成功',
-          showCancel:false,
-          success: function (res) {
-            if (res.confirm) {
-              wx.switchTab({
-                url: '../discover/discover',
-              })
-            }
+      // 获取相关答案信息
+      var a = dboperation.getById("Answers", aid).then(resData => {
+        let viewArr = resData.get("paiedId");
+        let userId = currentUser.id;
+        for (let i = 0, len = viewArr.length; i < len; i++) {
+          if (viewArr[i].id == userId) {
+            viewArr[i].isScored = true
           }
-        })
-      }, () => common.showModal('打分失败'));
+        }
+        var data = { "like": score, "paiedId": viewArr };
+        var ap = dboperation.change("Answers", that.data.aid, data);
+        var up = dboperation.change("_User", that.data.publisherId, data);
+        Promise.all([ap, up]).then((res) => {
+          console.log(res);
+          that.setData({
+            answer: res[0],
+            giveScore: false,
+            score: score,
+          });
+          wx.showModal({
+            title: '提示',
+            content: '打分成功',
+            showCancel: false,
+            success: function (res) {
+              if (res.confirm) {
+                wx.switchTab({
+                  url: '../discover/discover',
+                })
+              }
+            }
+          })
+        }, () => common.showModal('打分失败'));
+      })
     }
   })

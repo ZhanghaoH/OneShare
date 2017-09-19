@@ -88,8 +88,8 @@ Page({
             answerList.push(resData);
             if (user_id == resData.get("publisherId")) {
               that.setData({
-                tipStr: btnText[2],
-                istoAnswer: false,
+                // tipStr: btnText[2],
+                istoAnswer: true,
               })
             }
             console.log(answerList);
@@ -105,22 +105,6 @@ Page({
       istoAnswer: false,
     })
   },
-  onShow: function () {
-    // var myInterval = setInterval(getReturn, 500);
-    // function getReturn() {
-    //   wx.getStorage({
-    //     key: 'user_openid',
-    //     success: function (ress) {
-    //       if (ress.data) {
-    //         clearInterval(myInterval)
-    //         that.setData({
-    //           loading: true
-    //         })
-    //       }
-    //     }
-    //   })
-    // }
-  },
   onShareAppMessage: function () {
     return {
       title: '壹元知享',
@@ -130,27 +114,12 @@ Page({
   },
   toViewAnswer: function (event) {
     that = this;
+    console.log(event)
     var dataset = event.currentTarget.dataset;
-    var answer = { "id": dataset.id, "qid": dataset.qid };
-    var tipId = that.tipStr.id;
-    switch (tipId) {
-      // 回答问题
-      case 0:
-        that.toAnswer();
-        break;
-      // 补充问题
-      case 1:
-
-        break;
-      // 完善答案
-      case 2:
-        break;
-      default:
-        that.toViewAnswerPage();
-        break;
-    }
+    that.toViewAnswerPage(dataset);
   },
-  toViewAnswerPage: function () {
+  toViewAnswerPage: function (dataset) {
+    var answer = { "id": dataset.id, "qid": dataset.qid };
     wx.getStorage({
       key: 'user_openid',
       success: function (res) {
@@ -162,7 +131,7 @@ Page({
           if (arrPay.length != 0) {
             arrPay.map((e, i) => {
               if (e.id == user_id) {
-                wx.navigateTo({url: '../viewAnswer/viewAnswer?answer=' + JSON.stringify(answer),});
+                wx.navigateTo({ url: '../viewAnswer/viewAnswer?answer=' + JSON.stringify(answer), });
                 reject();
               }
             });
@@ -173,14 +142,14 @@ Page({
           arrPay.push(nobj);
           return dboperation.change("Answers", dataset.id, { "paiedId": arrPay, "viewNum": arrPay.length - 1 });
         }).then(() => {
-          wx.navigateTo({ url: '../viewAnswer/viewAnswer?answer=' + JSON.stringify(answer)});
+          wx.navigateTo({ url: '../viewAnswer/viewAnswer?answer=' + JSON.stringify(answer) });
         });
       },
     })
   },
   // 问题下的功能操作
   toAnswer: function (event) {
-    var tipId = that.tipStr.id;
+    var tipId = that.data.tipStr.id;
     switch (tipId) {
       // 回答问题
       case 0:
@@ -194,9 +163,9 @@ Page({
           url: '../ask/ask?questionId=' + that.data.qId,
         })
         break;
-      // 完善答案
-      case 2:
-        break;
+      // // 完善答案
+      // case 2:
+      //   break;
       default:
         break;
     }
