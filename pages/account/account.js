@@ -11,7 +11,22 @@ Page({
     user: {},
     qualify: false,
   },
-  onLoad: function () {
+  onLoad:function(){
+    if (Bmob.User.current()) {
+      let cuserid = Bmob.User.current().id;
+      dboperation.getUser(cuserid).then(res => {
+        username = res.username;
+        that = this;
+        that.setData({
+          user: res,
+          avatarUrl: res.userPic,
+          nickName: username || nickName,
+          qualify: res.verified
+        })
+      })
+    }
+  },
+  onShow: function () {
     if (Bmob.User.current()) {
       let cuserid = Bmob.User.current().id;
       dboperation.getUser(cuserid).then(res => {
@@ -29,6 +44,10 @@ Page({
 
   userInfoHandler: function (e) {
     var that = this;
+    wx.showLoading({
+      title: '获取信息中...',
+      mask: true,
+    })
     wx.getSetting({
       success(res) {
         console.log(res);
@@ -70,6 +89,7 @@ Page({
                   success: function (userData) {
                     wx.getUserInfo({
                       withCredentials: true,
+                      lang: "zh_CN",
                       success: function (result) {
                         var userInfo = result.userInfo;
                         var nickName = userInfo.nickName;
@@ -144,7 +164,12 @@ Page({
             }
           });
 
+        }else{
+          wx.navigateTo({
+            url: 'profile2/profile2',
+          });
         }
+        wx.hideLoading()
       }
     })
   },

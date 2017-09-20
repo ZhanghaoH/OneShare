@@ -16,27 +16,27 @@
   <view class="page__bd">
     <form bindsubmit="updateInfo">
       <view class="zan-form">
-        <view class="zan-cell zan-form__item" bindtap="toEditName">
+        <view class="zan-cell zan-form__item">
           <text class="zan-form__title">用户名</text>
           <input bindinput="filter" class="zan-form__content" name="username" value="{{userName}}" placeholder="用户名" maxlength="16"/>
         </view>
-        <view class="zan-cell zan-form__item" bindtap="toEditPhoneNum">
+        <view class="zan-cell zan-form__item">
           <text class="zan-form__title" type="number">联系电话</text>
           <input bindinput="filter" class="zan-form__content" name="mobilePhoneNumber" value="{{phoneNum}}" placeholder="电话" maxlength="13"/>
         </view>
-        <view class="zan-cell zan-form__item" bindtap="toEditEmail">
+        <view class="zan-cell zan-form__item">
           <text class="zan-form__title">电子邮箱</text>
           <input bindinput="filter" class="zan-form__content" value="{{email}}" placeholder="电子邮箱" name="email"/>
         </view>
-        <view class="zan-cell zan-form__item" bindtap="toEditArea">
+        <view class="zan-cell zan-form__item">
           <text class="zan-form__title">地区</text>
           <input bindinput="filter" class="zan-form__content" value="{{area}}" placeholder="所在地区" name="area"/>
         </view>
-        <view class="zan-cell zan-form__item" bindtap="toEditUniversity">
+        <view class="zan-cell zan-form__item">
           <text class="zan-form__title">学校</text>
           <input bindinput="filter" class="zan-form__content" value="{{university}}" placeholder="最高学历的母校" name="university"/>
         </view>
-        <view class="zan-cell zan-form__item" bindtap="toEditMajor">
+        <view class="zan-cell zan-form__item">
           <text class="zan-form__title">专业</text>
           <input bindinput="filter" class="zan-form__content" value="{{major}}" placeholder="专业" name="major"/>
         </view>
