@@ -162,7 +162,7 @@ Page({
       that.popWarn();
       return false;
     };
-    if (data.major.length < 4) {
+    if (data.major.length < 2) {
       that.setData({
         popText: "请确认专业无误"
       });
