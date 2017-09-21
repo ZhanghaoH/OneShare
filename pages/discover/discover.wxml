@@ -21,7 +21,7 @@
     <view  class="top-container flex-row">
       <image class="card-avatar" src="{{item.publisherPic}}"></image>
       <view class="user-container">
-        <text class="card-name">{{item.title}}</text>
+        <text class="card-name">{{item.ques}}</text>
         <view class="label-container">
           <text class="card-view">{{item.publisher}}</text>
           <!-- <image src="/image/ask-title.png" style="width: 18px;height: 18px;"></image> -->

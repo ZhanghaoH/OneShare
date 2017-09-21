@@ -23,30 +23,11 @@
       <text class="message-text ">{{qContent}}</text>
     </view>
   </view>
-  <view class="weui-panel">
-    <view class="weui-panel__bd">
-      <!--<view class="answerer-container">
-        <view class="top-container flex-row">
-          <image class="answerer-avatar" src="{{answererPic}}"></image>
-          <view class="user-container">
-            <text class="card-name">{{answerer}}</text>
-            <view class="label-container">
-              <image src="/image/answer-title.png" style="width: 18px;height: 18px;margin-left: 10px;padding-top: 5px"></image>
-              <text class="card-subtitle">{{university}}</text>
-            </view>
-            <view class="label-container">
-              <text class="card-subtitle__below">{{major}}</text>
-            </view>
-            <view class="label-container">
-              <text class="card-subtitle__below">{{answererTitle}}</text>
-              <text class="card-time__below"> | </text>
-              <text class="card-like">靠谱：{{likeNum}}</text>
-            </view>
-          </view>
-        </view>
-      </view>-->
-      <view class="addConent">
-        <textarea placeholder="写出你的回答" maxlength="250" auto-focus="true" bindinput="setContent" />
+  <view class="weui-cells">
+    <view class="weui-cell">
+      <view class="weui-cell__bd">
+        <textarea class='weui-textarea' placeholder="写出你的回答" maxlength="250" auto-focus="true" bindinput="setContent"/>
+        <view class="weui-textarea-counter">{{strLen}}/250</view>
       </view>
     </view>
   </view>

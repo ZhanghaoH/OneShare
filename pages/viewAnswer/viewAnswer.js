@@ -16,7 +16,6 @@ Page(
       publisher: {},
       scored: false,
       isPublic: true,
-      isPersonal: false,
       content: [],
       ishide: false,
       autoFocus: true,
@@ -58,9 +57,8 @@ Page(
       });
       // 获取相关答案信息
       var a = dboperation.getById("Answers", aid).then(resData => {
-        console.log(resData);
         that.setData({
-          answer: resData,
+          answer: resData.attributes,
           aId: aid,
         });
         let viewArr = resData.get("paiedId");
@@ -68,7 +66,7 @@ Page(
         for (let i = 0, len = viewArr.length; i < len; i++) {
           if (viewArr[i].id == userId) {
             that.setData({
-              scored: viewArr[i].isScored
+              scored: true
             })
           }
         }
@@ -102,24 +100,6 @@ Page(
     onReady: function () {
       wx.hideToast()
     },
-    onShow: function () {
-      var myInterval = setInterval(getReturn, 500);
-      function getReturn() {
-        wx.getStorage({
-          key: 'user_openid',
-          success: function (ress) {
-            if (ress.data) {
-              clearInterval(myInterval)
-              that.setData({
-                loading: true
-              })
-            }
-
-
-          }
-        })
-      }
-    },
     onShareAppMessage: function () {
       return {
         title: '壹元知享',
@@ -127,19 +107,9 @@ Page(
         path: '/pages/discover/discover'
       }
     },
-    noneWindows: function () {
-      that.setData({
-        giveScore: false,
-      })
-    },
     setContent: function (e) {//问题内容
       that.setData({
         aContent: e.detail.value
-      })
-    },
-    toScore: function (event) {
-      that.setData({
-        giveScore: true,
       })
     },
     sliderChange: function (e) {
@@ -150,7 +120,7 @@ Page(
     },
     modifyScore: function (e) {
       console.log("modify score to: " + that.data.score);
-      var answer = that.data.answer.attributes;
+      var answer = that.data.answer;
       var score = that.data.score + answer.like;
       console.log(answer.like);
       // 获取相关答案信息
@@ -164,7 +134,7 @@ Page(
         }
         var data = { "like": score, "paiedId": viewArr };
         var ap = dboperation.change("Answers", that.data.aid, data);
-        var up = dboperation.change("_User", that.data.publisherId, data);
+        var up = dboperation.change("_User", answer.publisherId, {"like": score});
         Promise.all([ap, up]).then((res) => {
           console.log(res);
           that.setData({

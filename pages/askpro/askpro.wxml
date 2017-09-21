@@ -28,6 +28,7 @@
     <view class="weui-cell">
       <view class='weui-cell__bd'>
         <textarea class='weui-textarea' placeholder="提出你的问题" maxlength="250" bindinput="setContent" />
+         <view class="weui-textarea-counter">{{strLen}}/250</view>
       </view>
     </view>
     <view class="weui-cell weui-cell_switch" hidden="{{hidden}}">

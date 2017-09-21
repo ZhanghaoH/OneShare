@@ -102,54 +102,55 @@ Page({
   onShow: function () {
     console.log("3");
     that = this
-    var query = new Bmob.Query(User);
-    query.descending('like');
-    // 查询所有数据
-    query.limit(that.data.limit);
-    query.equalTo("verified", true);
-    if (that.data.areaIndex != 0) {
-      query.equalTo("areaIndex", that.data.areaIndex);
-    }
-    if (that.data.universityIndex != 0) {
-      query.equalTo("universityIndex", that.data.universityIndex);
-    }
-    if (that.data.subjectIndex != 0) {
-      query.equalTo("subjectIndex", that.data.subjectIndex);
-    }
-    if (that.data.majorIndex != 0) {
-      query.equalTo("majorIndex", that.data.majorIndex);
-    }
-    if (that.data.areaIndex + that.data.universityIndex + that.data.subjectIndex + that.data.majorIndex > 0) {
-      query.find({
-        success: function (results) {
-          // 循环处理查询到的数据
-          console.log("result = ", results);
-          that.setData({
-            userList: results,
-            notSearched: false,
-          })
-        },
-        error: function (error) {
-          console.log("查询失败: " + error.code + " " + error.message);
-        }
-      });
-    }
-    else if (!that.data.notSearched) {
-    }
-    else {
-      that.setData({
-        notSearched: true,
-      })
-    }
+    that.search();
+    // var query = new Bmob.Query(User);
+    // query.descending('like');
+    // // 查询所有数据
+    // query.limit(that.data.limit);
+    // query.equalTo("verified", true);
+    // if (that.data.areaIndex != 0) {
+    //   query.equalTo("areaIndex", that.data.areaIndex);
+    // }
+    // if (that.data.universityIndex != 0) {
+    //   query.equalTo("universityIndex", that.data.universityIndex);
+    // }
+    // if (that.data.subjectIndex != 0) {
+    //   query.equalTo("subjectIndex", that.data.subjectIndex);
+    // }
+    // if (that.data.majorIndex != 0) {
+    //   query.equalTo("majorIndex", that.data.majorIndex);
+    // }
+    // if (that.data.areaIndex + that.data.universityIndex + that.data.subjectIndex + that.data.majorIndex > 0) {
+    //   query.find({
+    //     success: function (results) {
+    //       // 循环处理查询到的数据
+    //       console.log("result = ", results);
+    //       that.setData({
+    //         userList: results,
+    //         notSearched: false,
+    //       })
+    //     },
+    //     error: function (error) {
+    //       console.log("查询失败: " + error.code + " " + error.message);
+    //     }
+    //   });
+    // }
+    // else if (!that.data.notSearched) {
+    // }
+    // else {
+    //   that.setData({
+    //     notSearched: true,
+    //   })
+    // }
 
-    wx.getSystemInfo({
-      success: (res) => {
-        that.setData({
-          windowHeight: res.windowHeight,
-          windowWidth: res.windowWidth
-        })
-      }
-    })
+    // wx.getSystemInfo({
+    //   success: (res) => {
+    //     that.setData({
+    //       windowHeight: res.windowHeight,
+    //       windowWidth: res.windowWidth
+    //     })
+    //   }
+    // })
   },
   bindKeyInput: function (e) {
     this.setData({

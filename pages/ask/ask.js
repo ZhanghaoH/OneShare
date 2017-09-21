@@ -18,7 +18,8 @@ Page({
     published: false,
     hidden: true,
     showTopTips: false,
-    topTips: ""
+    topTips: "",
+    strLen: 0,
   },
   onLoad: function (options) {
     that = this;
@@ -104,7 +105,8 @@ Page({
   },
   setContent: function (e) {//问题内容
     that.setData({
-      content: e.detail.value
+      content: e.detail.value,
+      strLen: e.detail.value.length,
     })
   },
   setTitle: function (e) {

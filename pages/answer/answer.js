@@ -31,6 +31,7 @@ Page({
     autoFocus: true,
     isLoading: false,
     loading: false,
+    strLen: 0,
     published: true,
   },
   onLoad: function (options) {
@@ -74,24 +75,6 @@ Page({
   onReady: function () {
     wx.hideToast()
   },
-  onShow: function () {
-    var myInterval = setInterval(getReturn, 500);
-    function getReturn() {
-      wx.getStorage({
-        key: 'user_openid',
-        success: function (ress) {
-          if (ress.data) {
-            clearInterval(myInterval)
-            that.setData({
-              loading: true
-            })
-          }
-
-
-        }
-      })
-    }
-  },
   onShareAppMessage: function () {
     return {
       title: '壹元知享',
@@ -101,7 +84,8 @@ Page({
   },
   setContent: function (e) {//问题内容
     that.setData({
-      aContent: e.detail.value
+      aContent: e.detail.value,
+      strLen: e.detail.value.length,
     })
   },
   sendNewAnswer: function (e) {//发布回答
@@ -117,7 +101,7 @@ Page({
       });
       var answers = that.data.answerList;
       var arr = [];
-      arr.push({ "id": that.data.user_id, "isScored": false});
+      arr.push({ "id": that.data.user_id, "isScored": true});
       console.log(arr);
       var answerObj = { 
         "questionId": that.data.qId, 
