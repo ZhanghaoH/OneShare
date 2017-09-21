@@ -8,7 +8,7 @@
     <view class="top-container flex-row">
       <image class="card-avatar" src="{{publisherPic}}"></image>
       <view class="user-container">
-        <text class="card-name">{{title}}</text>
+        <text class="card-name">{{ques}}</text>
         <view class="label-container">
           <text class="card-view"> {{publisher}}</text>
           <text class="card-time"> | </text>

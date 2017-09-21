@@ -9,7 +9,7 @@
     <view class="top-container flex-row">
       <image class="card-avatar" src="{{question.publisherPic}}"></image>
       <view class="user-container">
-        <text class="card-name">{{question.title}}</text>
+        <text class="card-name">{{question.ques}}</text>
         <view class="label-container">
           <text class="card-view"> {{question.publisher}}</text>
           <text class="card-time"> | </text>

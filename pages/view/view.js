@@ -18,7 +18,7 @@ Page({
     publisherPic: "",
     publisher: "",
     publisherId: "",
-    title: "",
+    ques: "",
     viewNum: 0,
     answerNum: 0,
     qContent: "",
@@ -61,7 +61,7 @@ Page({
         // 提问者ID
         publisherId: resData.publisherId,
         publisher: resData.publisher,
-        title: resData.title,
+        ques: resData.ques,
         label: resData.label,
         viewNum: resData.viewNum,
         // answerList: resData.answers || [],

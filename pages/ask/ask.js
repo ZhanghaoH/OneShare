@@ -12,7 +12,7 @@ Page({
     labelIndex: "0",
     askerId: "",
     isAddition: false,
-    title: "",
+    ques: "",
     thisLabel: "",
     content: "",
     published: false,
@@ -24,7 +24,6 @@ Page({
   onLoad: function (options) {
     that = this;
     var userId = wx.getStorageSync("user_id"); //获取用户id
-
     // answerer存在，则是指定回答者,需要加载用户信息
     if (options.answerer) {
       let tmpUser = options.answerer;
@@ -51,7 +50,7 @@ Page({
         let quesLabel = res.get("label")
         let i = arrLabel.indexOf(quesLabel)
         that.setData({
-          title: res.get("title"),
+          ques: res.get("ques"),
           content: res.get("content"),
           labelIndex: i
         })
@@ -109,9 +108,9 @@ Page({
       strLen: e.detail.value.length,
     })
   },
-  setTitle: function (e) {
+  setQues: function (e) {
     that.setData({
-      title: e.detail.value
+      ques: e.detail.value
     })
   },
   showTopTips: function (str) {
@@ -130,11 +129,11 @@ Page({
   sendNewQuestion: function (e) {//发布问题
     that = this;
     var content = that.data.content;
-    var title = that.data.title;
+    var ques = that.data.ques;
     var labelIndex = that.data.labelIndex;
     var formId = e.detail.formId;
     // that.inform(formId);
-    if (title == "") {
+    if (ques == "") {
       that.showTopTips("标题不能为空");
       return;
     }
@@ -157,11 +156,11 @@ Page({
   changeQuestion() {
     console.log("change")
     let content = that.data.content;
-    let title = that.data.title;
+    let ques = that.data.ques;
     let labelIndex = that.data.labelIndex;
-    let data = { "title": title, "content": content, "label": that.data.label[that.data.labelIndex] }
+    let data = { "ques": ques, "content": content, "label": that.data.label[that.data.labelIndex] }
     let data2 = { "label": that.data.label[that.data.labelIndex] };
-    let ques = dboperation.change("Question", tempQ, data).then(() =>{
+    let question = dboperation.change("Question", tempQ, data).then(() =>{
     // let ans = dboperation.change("Answer", tempQ, data2)
     // Promise.all([ques, ans]).then(() => {
       wx.hideLoading();
@@ -192,7 +191,7 @@ Page({
   createQuestion: function () {
     console.log("create")
     let content = that.data.content;
-    let title = that.data.title;
+    let ques = that.data.ques;
     let labelIndex = that.data.labelIndex;
     wx.getStorage({
       key: 'user_openid',
@@ -210,7 +209,7 @@ Page({
                 success: function (result) {
                   publisherPic = result.get("userPic");
                   publisherName = result.get("username");
-                  question.set("title", title);
+                  question.set("ques", ques);
                   question.set("content", content);
                   question.set("isPublic", that.data.isPublic);
                   question.set("caller", that.data.callerId);
