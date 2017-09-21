@@ -45,6 +45,6 @@
     </view>
   </view>
 </view>
-<modal title="成为回答者 " wx:if="{{answererModal}}" confirm-text="是 " cancel-text="否 " bindconfirm="answererConfirm" bindcancel="answererCancel">
-  您需要先申请成为回答者才能提问或答题。是否确认前往回答者申请页面？
+<modal title="温馨提示 " wx:if="{{answererModal}}" confirm-text="是 " cancel-text="否 " bindconfirm="answererConfirm" bindcancel="answererCancel">
+  您需要先通过认证才能提问或答题。是否确认前往认证页面？
 </modal>
