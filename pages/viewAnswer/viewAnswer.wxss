@@ -41,7 +41,7 @@
 .addConent {
   padding-top: 30rpx;
   overflow: hidden;
-  margin-bottom: 30px;
+  margin-bottom: 30rpx;
   line-height: 1.5;
 }
 
