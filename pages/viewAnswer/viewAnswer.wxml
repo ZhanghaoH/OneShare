@@ -4,7 +4,7 @@
 <loading hidden="{{published}}">
   问题发布中...
 </loading>
-<scroll-view scroll-y="true" class="timeline" style="padding-bottom:70rpx">
+<view style="padding-bottom:70rpx">
   <view class="tweet-container">
     <view class="top-container flex-row">
       <image class="card-avatar" src="{{question.publisherPic}}"></image>
@@ -50,7 +50,10 @@
       </view>
     </view>
   </view>
-</scroll-view>
+  <view class="btn-area" wx:if="{{askAgain}}">
+    <button hover-start-time="200" bindtap='askpro'>继续追问</button>
+  </view>
+</view>
 <view class="score-container" wx:if="{{!scored}}">
   <form bindsubmit="modifyScore">
     <view class="score">

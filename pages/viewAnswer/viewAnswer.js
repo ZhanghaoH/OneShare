@@ -24,6 +24,7 @@ Page(
       loading: false,
       isdisabled: false,
       score: 60,
+      askAgain: true
     },
     onLoad: function (options) {
       that = this;
@@ -66,36 +67,12 @@ Page(
         for (let i = 0, len = viewArr.length; i < len; i++) {
           if (viewArr[i].id == userId) {
             that.setData({
-              scored: true
+              scored: true,
+              askAgain: false
             })
           }
         }
-        // if(that.data.answer.publisherId != currentUser.id){
-        // var viewArr = that.data.answer.viewArr || [];
-        // console.log(viewArr);
-        // viewArr.push(currentUser.id);
-        // var viewNum = viewArr.length;
-        // console.log(viewArr);
-        // console.log(currentUser.id);
-        // var data = {"viewArr":viewArr,"viewNum":viewNum};
-        // console.log(data);
-        // var _as = dboperation.change("Answers",aid,data).then( () => {
-        //   wx.hideLoading();
-        // }) 
-        // var _a = dboperation.getBy("Answers","punlisherId",that.data.answer.publisherId).then(resData => {
-        //   resData.map(e => {
-        //     dboperation.change("Answers", e.id, { "viewNum": viewNum});
-        //   });
-        // });
-        // var _u = dboperation.getUser(that.data.answer.publisherId).then(resData => {
-        //   dboperation.change("_User", resData.id, { "viewNum": viewNum });
-        // });
-        // }
       });
-      //  Promise.all([q, a]).then((resData) => {
-      //    console.log(resData);
-      //  })
-      //  console.log(that.data.answer.viewArr);
     },
     onReady: function () {
       wx.hideToast()
@@ -134,7 +111,7 @@ Page(
         }
         var data = { "like": score, "paiedId": viewArr };
         var ap = dboperation.change("Answers", that.data.aid, data);
-        var up = dboperation.change("_User", answer.publisherId, {"like": score});
+        var up = dboperation.change("_User", answer.publisherId, { "like": score });
         Promise.all([ap, up]).then((res) => {
           console.log(res);
           that.setData({
@@ -155,6 +132,12 @@ Page(
             }
           })
         }, () => common.showModal('打分失败'));
+      })
+    },
+    askpro: function () {
+      var answer = that.data.answer;
+      wx.navigateTo({
+        url: '../askpro/askpro?answerer=' + answer.publisherId,
       })
     }
   })

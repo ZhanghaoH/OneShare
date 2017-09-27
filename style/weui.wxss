@@ -1439,7 +1439,7 @@ icon {
   top: 5rpx;
   right: 0;
   font-weight: bold;
-  color: #cecece;
+  /* color: #cecece; */
   font-size: 13px;
 }
 
@@ -1449,7 +1449,7 @@ icon {
   bottom: 0;
   right: 0;
   font-size: 13px;
-  color: #cecece;
+  /* color: #cecece; */
   list-style: none;
   overflow: hidden;
 }
