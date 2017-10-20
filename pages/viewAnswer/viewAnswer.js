@@ -62,13 +62,15 @@ Page(
           answer: resData.attributes,
           aId: aid,
         });
+        console.log(resData)
         let viewArr = resData.get("paiedId");
         let userId = currentUser.id;
         for (let i = 0, len = viewArr.length; i < len; i++) {
           if (viewArr[i].id == userId) {
+            console.log(viewArr[i])
             that.setData({
-              scored: true,
-              askAgain: false
+              scored: viewArr[i].isScored,
+              // askAgain: !viewArr[i].isScored
             })
           }
         }
@@ -98,6 +100,7 @@ Page(
     modifyScore: function (e) {
       console.log("modify score to: " + that.data.score);
       var answer = that.data.answer;
+      console.log(answer)
       var score = that.data.score + answer.like;
       console.log(answer.like);
       // 获取相关答案信息
@@ -109,8 +112,10 @@ Page(
             viewArr[i].isScored = true
           }
         }
+        console.log(viewArr)
         var data = { "like": score, "paiedId": viewArr };
-        var ap = dboperation.change("Answers", that.data.aid, data);
+        var ap = dboperation.change("Answers", that.data.aId, data);
+        console.log(answer.publisherId)
         var up = dboperation.change("_User", answer.publisherId, { "like": score });
         Promise.all([ap, up]).then((res) => {
           console.log(res);
@@ -128,6 +133,7 @@ Page(
                 wx.switchTab({
                   url: '../discover/discover',
                 })
+                // that.onShow()
               }
             }
           })

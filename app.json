@@ -5,7 +5,6 @@
     "pages/view/view",  
     "pages/viewAnswer/viewAnswer",
     "pages/search/search",
-    "pages/account/profile/profile",
     "pages/account/profile2/profile2",
     "pages/account/about/about",
     "pages/account/protocol/protocol",

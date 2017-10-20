@@ -6,7 +6,7 @@ var app = getApp();
 var currentUser;
 Page({
   data: {
-    label: ["板块", "初中", "高中", "本科", "硕士", "博士", "其它"],
+    label: ["板块", "小学", "初中", "高中", "大学本科", "硕士研究生", "博士研究生", "出国留学", "考级考试", "其它"],
     labelIndex: 0,
     rank: ["排序", "回答数排序"],
     rankIndex: 0,
@@ -198,8 +198,7 @@ Page({
       success: function (res) {
         dboperation.getUser(res.data).then((resData) => {
           if (resData.verified) {
-            var dataset = event.target.dataset;
-            console.log(dataset.id);
+            var dataset = event.currentTarget.dataset;
             wx.navigateTo({
               url: '../view/view?questionId=' + dataset.id,
             })

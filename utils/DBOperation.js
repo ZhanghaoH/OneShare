@@ -28,7 +28,7 @@ function add(DBName, data) {
 //修改数据
 function change(DBName, id, data) {
   return new Promise((resolve, reject) => {
-    var DB = DBName == "_User" ? Bmob.User : Bmob.Object.extend(DBName);
+    var DB = DBName == "_User" ? Bmob.User.extend("_User") : Bmob.Object.extend(DBName);
     var query = new Bmob.Query(DB);
     var db = new DB();
     console.log(DBName);
@@ -119,7 +119,7 @@ function getById(DBName, objectId) {
 //查询用户信息
 function getUser(userId) {
   return new Promise((resolve, reject) => {
-    var query = new Bmob.Query(Bmob.User);
+    var query = new Bmob.Query(Bmob.User.extend('_User'));
     query.equalTo("objectId", userId);
     console.log(userId);
     query.first({

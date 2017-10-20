@@ -18,7 +18,7 @@
 </view>
     <view class="weui-panel__hd" wx:if="{{questionList.length == 0}}"><text>问题空空如也，缺了如你一样发现问题的眼睛，快去提问吧！</text></view>
   <view class="tweet-container" wx:for="{{questionList}}" wx:key="id">
-    <view  class="top-container flex-row">
+    <view  class="top-container flex-row" data-id="{{item.objectId}}" bindtap="toView">
       <image class="card-avatar" src="{{item.publisherPic}}"></image>
       <view class="user-container">
         <text class="card-name">{{item.ques}}</text>
@@ -36,13 +36,13 @@
     <view class="middle-container flex-column ">
       <text class="message-text ">{{item.content}}</text>
     </view>
-    <view class="bottom-container flex-row ">
+    <!-- <view class="bottom-container flex-row ">
       <view class="bottom-tool flex-row flex-rest-width " data-id="{{item.objectId}}" data-label="{{item.label}}" data-viewNum="{{item.viewNum}}" data-answerNum="{{item.answerNum}}" data-title="{{item.title}}" data-pic="{{item.publisherPic}}" bindtap="toView">查看详情
-      </view>
+      </view> -->
       <!--<view class="bottom-tool flex-row flex-rest-width ">
         <text class="bottom-tool-text " data-id="{{item.objectId}}" data-label="{{item.label}}" data-viewNum="{{item.viewNum}}" data-answerNum="{{item.answerNum}}" data-title="{{item.title}}" data-pic="{{item.publisherPic}}" bindtap="toAnswer">回答</text>
       </view>-->
-    </view>
+    <!-- </view> -->
   </view>
 </view>
 <modal title="温馨提示 " wx:if="{{answererModal}}" confirm-text="是 " cancel-text="否 " bindconfirm="answererConfirm" bindcancel="answererCancel">

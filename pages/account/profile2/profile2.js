@@ -11,7 +11,7 @@ var currentUser, cudata;
 Page({
   data: {
     limit: 10,
-    degree: ["初中", "高中", "本科", "硕士", "博士", "其它"],
+    degree: ["小学", "初中", "高中", "大学本科", "硕士研究生", "博士研究生", "出国留学", "考级考试", "其它"],
     titleIndex: 0,
     userName: '',
     phoneNum: '',
