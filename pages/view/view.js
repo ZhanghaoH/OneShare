@@ -5,7 +5,7 @@ var Bmob = require("../../utils/bmob.js");
 var common = require('../../utils/common.js');
 var pay = require('../../utils/pay.js');
 var dboperation = require('../../utils/DBOperation.js');
-var that, user_id, tip_str;
+var that, user_id, tip_str, a_p_id;
 const btnText = [
   { id: 0, text: "回答问题" },
   { id: 1, text: "补充问题" },
@@ -15,7 +15,7 @@ Page({
   data: {
     user: {},
     qId: "",
-    publisherPic: "",
+    publisherPic: "../../image/profile.png",
     publisher: "",
     publisherId: "",
     ques: "",
@@ -25,12 +25,8 @@ Page({
     question: {},
     answerList: [],
     user: {},
-    isPublic: true,
     content: "",
     autoFocus: true,
-    loading: false,
-    published: true,
-    istoAnswer: true,
     // tipStr: btnText[0]
   },
   onLoad: function (options) {
@@ -85,6 +81,7 @@ Page({
           console.log(e);
           dboperation.getById("Answers", e).then(resData => {
             console.log(resData.get("publisherId"))
+            a_p_id = resData.get("publisherId")
             answerList.push(resData);
             if (user_id == resData.get("publisherId")) {
               that.setData({
@@ -128,22 +125,22 @@ Page({
         dboperation.getById("Answers", dataset.id).then(res => {
           // console.log(res.get("paiedId"));
           arrPay = arrPay.concat(res.get("paiedId"));
-          if (arrPay.length != 0) {
-            arrPay.map((e, i) => {
-              if (e.id == user_id) {
+          if(arrPay.some(el => el.id === user_id)){
                 wx.navigateTo({ url: '../viewAnswer/viewAnswer?answer=' + JSON.stringify(answer), });
-                reject();
-              }
-            });
+                return new Promise((resolve, reject) => { reject();})
+          }else{
             return pay.pay(0.01, '问题支付', '您将为发布问题支付相应费用', openId)
           }
         }).then(() => {
           let nobj = { "id": user_id, "isScored": false };
-          arrPay.push(nobj);
-          return dboperation.change("Answers", dataset.id, { "paiedId": arrPay, "viewNum": arrPay.length - 1 });
+          console.log(arrPay.some(el => el.id === a_p_id))
+          if (!arrPay.some(el => el.id === a_p_id)) {
+            arrPay.push(nobj);
+            return dboperation.change("Answers", dataset.id, { "paiedId": arrPay, "viewNum": arrPay.length - 1 });
+          }
         }).then(() => {
           wx.navigateTo({ url: '../viewAnswer/viewAnswer?answer=' + JSON.stringify(answer) });
-        });
+        }).catch(() => console.log('err'));
       },
     })
   },

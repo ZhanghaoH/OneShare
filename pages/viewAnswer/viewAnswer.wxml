@@ -7,7 +7,7 @@
 <view style="padding-bottom:70rpx">
   <view class="tweet-container">
     <view class="top-container flex-row">
-      <image class="card-avatar" src="{{question.publisherPic}}"></image>
+      <image class="card-avatar" src="{{question.publisherPic ? question.publisherPic : '../../image/profile.png'}}"></image>
       <view class="user-container">
         <text class="card-name">{{question.ques}}</text>
         <view class="label-container">
@@ -28,7 +28,7 @@
     <view class="weui-panel__bd">
       <view class="answerer-container">
         <view class="top-container flex-row">
-          <image class="answerer-avatar" src="{{answer.publisherPic}}"></image>
+          <image class="answerer-avatar" src="{{answer.publisherPic ? answer.publisherPic : '../../image/profile.png'}}"></image>
           <view class="user-container">
             <text class="card-time">{{answer.publisher}}</text>
             <view class="label-container">

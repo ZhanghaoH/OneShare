@@ -38,7 +38,7 @@
       </view>
     </view>
   </view>
-  <view class="weui-cells__tips" >*问题将以公开形式展示在主页供大家浏览回答，若想指定回答者，建议去搜索页检索回答着操作。</view>
+  <view class="weui-cells__tips" >*问题将以公开形式展示在主页供大家浏览回答，若想指定回答者，建议去搜索页检索回答者操作。</view>
   <!-- </view> -->
   <view class="btn-area">
     <button form-type="submit" data-content="{{content}}" data-title="{{title}}" hover-start-time="200">发布</button>

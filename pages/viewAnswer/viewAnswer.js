@@ -101,7 +101,8 @@ Page(
       console.log("modify score to: " + that.data.score);
       var answer = that.data.answer;
       console.log(answer)
-      var score = that.data.score + answer.like;
+      // var score = that.data.score + answer.like;
+      var score = that.data.score;
       console.log(answer.like);
       // 获取相关答案信息
       var a = dboperation.getById("Answers", aid).then(resData => {
