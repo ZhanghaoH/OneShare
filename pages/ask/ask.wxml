@@ -31,6 +31,12 @@
          <view class="weui-textarea-counter">{{strLen}}/2000</view>
       </view>
     </view>
+    <view class='weui-cell img-wrap'>
+      <block wx:for="{{imgArr}}" wx:key="index">
+        <image src='{{item}}' class='img-inline' data-index='{{index}}' bindtap='showMenu'></image>
+      </block>
+      <image src='../../image/add_img.png' class='img-inline' wx:if="{{imgArr.length < 9 }}" bindtap="upImg"></image>
+    </view>
     <view class="weui-cell weui-cell_switch" hidden="{{hidden}}">
       <view class="weui-cell__bd">提问是否公开</view>
       <view class="weui-cell__ft">

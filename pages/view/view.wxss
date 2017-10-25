@@ -1,14 +1,13 @@
 @import "../common/index.wxss";
 page {
-  padding-bottom: 60px;
   box-sizing: border-box;
 }
-.timeline {
+/* .timeline {
   height: auto;
-}
+} */
 /* 底部按钮 */
 .btn-fixed-bottom {
-  position: absolute;
+  position: fixed;
   height: 45px;
   line-height: 45px;
   left: 0;
@@ -271,7 +270,7 @@ view, scroll-view, input, text {
 .middle-container {
   padding: 15rpx;
   padding-left: 25rpx;
-  border-bottom: 1rpx solid #e1e1e1;
+  /* border-bottom: 1rpx solid #e1e1e1; */
 }
 
 .message-text {
@@ -325,4 +324,7 @@ view, scroll-view, input, text {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+.ques-img-wrap {
+  text-align: center
 }

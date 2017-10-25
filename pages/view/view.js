@@ -64,6 +64,7 @@ Page({
         answerNum: resData.answerNum,
         isPublic: resData.isPublic,
         loading: true,
+        imgArr: resData.images
       });
       // 根据当前浏览者确定可执行操作
       console.log(user_id + "--" + that.data.publisher)

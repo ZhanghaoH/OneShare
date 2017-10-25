@@ -17,10 +17,16 @@
   <view class="middle-container flex-column ">
     <text class="message-text ">{{qContent}}</text>
   </view>
+  <view class='ques-img-wrap'>
+    <block wx:for="{{imgArr}}" wx:key="index">
+        <image src='{{item}}' mode='aspectFit'></image>
+      </block>
+  </view>
 </view>
-<scroll-view scroll-y="true" bindscrolltolower="scrollToLower" class="timeline">
-  <view class="weui-panel__hd" wx:if="{{answerList.length==0}}">暂时没有回答者坐镇，快来成为这里的第一个回答者！</view>
-  <view class="answer-container" wx:for="{{answerList}}" wx:key="id">
+<!-- <scroll-view scroll-y="true" bindscrolltolower="scrollToLower" class="timeline"> -->
+<view>
+  <view class="weui-panel__hd" wx:if="{{answerList.length==0}}" style='padding-bottom: 60px'>暂时没有回答者坐镇，快来成为这里的第一个回答者！</view>
+  <view class="answer-container" wx:for="{{answerList}}" wx:key="id" style='padding-bottom: 60px'>
     <view class="top-container flex-row">
       <image class="answerer-avatar" src="{{item.publisherPic}}"></image>
       <view class="user-container">
@@ -46,4 +52,5 @@
       </view>
     </view>
   </view>
-</scroll-view>
+<!-- </scroll-view> -->
+</view>
