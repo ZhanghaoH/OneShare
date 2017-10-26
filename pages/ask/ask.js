@@ -13,7 +13,6 @@ Page({
     askerId: "",
     isAddition: false,
     ques: "",
-    thisLabel: "",
     content: "",
     published: false,
     hidden: true,

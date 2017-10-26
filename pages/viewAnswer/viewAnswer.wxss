@@ -357,7 +357,7 @@ view, scroll-view, input, text {
 .middle-container {
   padding: 15rpx;
   padding-left: 25rpx;
-  border-bottom: 1rpx solid #e1e1e1;
+  /* border-bottom: 1rpx solid #e1e1e1; */
 }
 
 .message-text {
@@ -407,4 +407,20 @@ view, scroll-view, input, text {
   color: #333;
   line-height: 1.5;
   padding-bottom: 10px;
+}
+.ques-img-wrap {
+  text-align: center;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.ques-img-wrap image {
+  width: 100%;
+  background: #f8f8f8;
+}
+.weui-panel {
+  background-color: #fff;
+  position: relative;
+  overflow: hidden;
+  margin-left: 15px;
+  margin-right: 15px;
 }

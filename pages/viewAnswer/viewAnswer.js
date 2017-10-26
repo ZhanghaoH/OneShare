@@ -24,7 +24,8 @@ Page(
       loading: false,
       isdisabled: false,
       score: 60,
-      askAgain: true
+      askAgain: true,
+      imgArr: []
     },
     onLoad: function (options) {
       that = this;
@@ -44,16 +45,17 @@ Page(
           question: resData,
           qContent: resData.content,
           qId: qid,
-          publisherPic: resData.publisherPic,
-          publisher: resData.publisher,
-          publisherId: resData.publisherId,
-          title: resData.title,
-          label: resData.label,
-          viewNum: resData.viewNum,
-          answerList: resData.answers || [],
-          answerNum: resData.answerNum,
-          isPublic: resData.isPublic,
+          publisherPic: resData.get('publisherPic'),
+          publisher: resData.get('publisher'),
+          publisherId: resData.get('publisherId'),
+          title: resData.get('title'),
+          label: resData.get('label'),
+          viewNum: resData.get('viewNum'),
+          answerList: resData.get('answers') || [],
+          answerNum: resData.get('answerNum'),
+          isPublic: resData.get('isPublic'),
           loading: true,
+          imgArr: resData.get('images')
         });
       });
       // 获取相关答案信息
@@ -70,9 +72,13 @@ Page(
             console.log(viewArr[i])
             that.setData({
               scored: viewArr[i].isScored,
-              // askAgain: !viewArr[i].isScored
             })
           }
+        }
+        if(resData.get('publisherId') == userId){
+          that.setData({
+            askAgain: false
+          })
         }
       });
     },
@@ -101,9 +107,9 @@ Page(
       console.log("modify score to: " + that.data.score);
       var answer = that.data.answer;
       console.log(answer)
-      // var score = that.data.score + answer.like;
-      var score = that.data.score;
-      console.log(answer.like);
+      var score = that.data.score + answer.like;
+      // var score = that.data.score;
+      console.log(score);
       // 获取相关答案信息
       var a = dboperation.getById("Answers", aid).then(resData => {
         let viewArr = resData.get("paiedId");
@@ -146,5 +152,15 @@ Page(
       wx.navigateTo({
         url: '../askpro/askpro?answerer=' + answer.publisherId,
       })
+    },
+    // 预览图片
+    showImg: function (e) {
+      var index = e.currentTarget.dataset.index
+      var tempUrlArr = that.data.imgArr
+      wx.previewImage({
+        urls: tempUrlArr,
+        current: tempUrlArr[index]
+      })
+
     }
   })

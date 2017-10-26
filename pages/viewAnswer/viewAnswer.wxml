@@ -4,7 +4,7 @@
 <loading hidden="{{published}}">
   问题发布中...
 </loading>
-<view style="padding-bottom:70rpx">
+<view style="padding-bottom:100rpx">
   <view class="tweet-container">
     <view class="top-container flex-row">
       <image class="card-avatar" src="{{question.publisherPic ? question.publisherPic : '../../image/profile.png'}}"></image>
@@ -22,6 +22,11 @@
     </view>
     <view class="middle-container flex-column ">
       <text class="message-text ">{{question.content}}</text>
+    </view>
+    <view class='ques-img-wrap'>
+      <block wx:for="{{imgArr}}" wx:key="index">
+        <image src='{{item}}' mode='widthFix' bindtap='showImg' data-index='{{index}}'></image>
+      </block>
     </view>
   </view>
   <view class="weui-panel">

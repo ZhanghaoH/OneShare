@@ -18,7 +18,7 @@
   <!-- <view class="weui-panel"> -->
   <view class="weui-cells">
     <view class='weui-cell'>
-      <input placeholder="输入标题" value="{{ques}}" class="weui_input" bindinput="setQues" />
+      <input placeholder="输入标题" value="{{ques}}" class="weui_input" bindinput="setQues" maxlength='20'/>
     </view>
     <view class="weui-cell">
       <picker class="zan-form__content" mode="selector" range="{{ label }}" value="{{ labelIndex }}" bindchange="onLabelChange">

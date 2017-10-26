@@ -126,19 +126,21 @@ Page({
         dboperation.getById("Answers", dataset.id).then(res => {
           // console.log(res.get("paiedId"));
           arrPay = arrPay.concat(res.get("paiedId"));
-          if(arrPay.some(el => el.id === user_id)){
-                wx.navigateTo({ url: '../viewAnswer/viewAnswer?answer=' + JSON.stringify(answer), });
-                return new Promise((resolve, reject) => { reject();})
-          }else{
+          // 当前用户id已经在已支付列表中就免支付，直接看答案
+          if (arrPay.some(el => el.id === user_id)) {
+            wx.navigateTo({ url: '../viewAnswer/viewAnswer?answer=' + JSON.stringify(answer), });
+            return new Promise((resolve, reject) => { reject(); })
+          } else {
             return pay.pay(0.01, '问题支付', '您将为发布问题支付相应费用', openId)
           }
         }).then(() => {
           let nobj = { "id": user_id, "isScored": false };
-          console.log(arrPay.some(el => el.id === a_p_id))
-          if (!arrPay.some(el => el.id === a_p_id)) {
+          // console.log(arrPay.some(el => el.id === a_p_id))
+          // if (!arrPay.some(el => el.id === a_p_id)) {
             arrPay.push(nobj);
+            console.log("修改围观人数了")
             return dboperation.change("Answers", dataset.id, { "paiedId": arrPay, "viewNum": arrPay.length - 1 });
-          }
+          // }
         }).then(() => {
           wx.navigateTo({ url: '../viewAnswer/viewAnswer?answer=' + JSON.stringify(answer) });
         }).catch(() => console.log('err'));
@@ -168,4 +170,15 @@ Page({
         break;
     }
   },
+  // 预览图片
+  showImg: function (e) {
+    var index = e.currentTarget.dataset.index
+    var tempUrlArr = that.data.imgArr
+    wx.previewImage({
+      urls: tempUrlArr,
+      current: tempUrlArr[index]
+    })
+
+  }
 })
+

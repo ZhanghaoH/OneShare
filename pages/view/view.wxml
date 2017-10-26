@@ -19,38 +19,37 @@
   </view>
   <view class='ques-img-wrap'>
     <block wx:for="{{imgArr}}" wx:key="index">
-        <image src='{{item}}' mode='aspectFit'></image>
-      </block>
+      <image src='{{item}}' mode='widthFix' bindtap='showImg' data-index='{{index}}'></image>
+    </block>
   </view>
 </view>
 <!-- <scroll-view scroll-y="true" bindscrolltolower="scrollToLower" class="timeline"> -->
 <view>
-  <view class="weui-panel__hd" wx:if="{{answerList.length==0}}" style='padding-bottom: 60px'>暂时没有回答者坐镇，快来成为这里的第一个回答者！</view>
-  <view class="answer-container" wx:for="{{answerList}}" wx:key="id" style='padding-bottom: 60px'>
-    <view class="top-container flex-row">
-      <image class="answerer-avatar" src="{{item.publisherPic}}"></image>
-      <view class="user-container">
-        <!--<text class="card-name">{{item.publisherName}}</text>-->
-        <view class="label-container">
-          <text class="card-time">{{item.publisher}}</text>
+  <view class="weui-panel__hd" wx:if="{{answerList.length==0}}" style='padding-bottom: 60px'>暂时没有回答者坐镇，快来成为这里的第一个回答者！      </view>
+  <block wx:for="{{answerList}}" wx:key="id">
+    <view class="answer-container">
+      <view class="top-container flex-row">
+        <image class="answerer-avatar" src="{{item.publisherPic}}"></image>
+        <view class="user-container">
+          <!--<text class="card-name">{{item.publisherName}}</text>-->
+          <view class="label-container">
+            <text class="card-time">{{item.publisher}}</text>
+          </view>
+          <view class="label-container">
+            <view class="card-view">围观：{{item.viewNum}}</view>
+            <view class="card-time"> | </view>
+            <image src="/image/answer-title.png" style="width: 18px;height: 18px;margin-left: 10px;flex:none"></image>
+            <view class="card-view">#{{item.label}}</view>
+            <view class="card-time__below"> | </view>
+            <view class="card-like">靠谱：{{item.like}}</view>
+          </view>
         </view>
-        <view class="label-container">
-          <view class="card-view">围观：{{item.viewNum}}</view>
-          <view class="card-time"> | </view>
-          <image src="/image/answer-title.png" style="width: 18px;height: 18px;margin-left: 10px;flex:none"></image>
-          <view class="card-view" >#{{item.label}}</view>
-          <view class="card-time__below"> | </view>
-          <view class="card-like">靠谱：{{item.like}}</view>
+      </view>
+      <view class="bottom-container flex-row ">
+        <view class="bottom-tool flex-row flex-rest-width " data-id="{{item.objectId}}" data-qid="{{qId}}" bindtap="toViewAnswer">围观({{item.content.length}}个字)
         </view>
       </view>
     </view>
-    <!-- <view class="middle-container flex-column" wx:if="{{}}">
-      <text class="message-text ">{{item.content}}</text>
-    </view> -->
-    <view class="bottom-container flex-row ">
-      <view class="bottom-tool flex-row flex-rest-width " data-id="{{item.objectId}}" data-qid="{{qId}}" bindtap="toViewAnswer">围观({{item.content.length}}个字)
-      </view>
-    </view>
-  </view>
-<!-- </scroll-view> -->
+  </block>
+  <!-- </scroll-view> -->
 </view>
