@@ -178,7 +178,6 @@ Page({
       urls: tempUrlArr,
       current: tempUrlArr[index]
     })
-
   }
 })
 

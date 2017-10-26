@@ -397,4 +397,12 @@ view, scroll-view, input, text {
   flex-direction: row;
   align-items: center;
 }
-
+.ques-img-wrap {
+  text-align: center;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.ques-img-wrap image {
+  width: 100%;
+  background: #f8f8f8;
+}

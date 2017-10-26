@@ -137,10 +137,12 @@ Page(
             showCancel: false,
             success: function (res) {
               if (res.confirm) {
-                wx.switchTab({
-                  url: '../discover/discover',
+                // wx.switchTab({
+                //   url: '../discover/discover',
+                // })
+                that.setData({
+                  scored: true,
                 })
-                // that.onShow()
               }
             }
           })

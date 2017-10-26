@@ -22,6 +22,11 @@
     <view class="middle-container flex-column ">
       <text class="message-text ">{{qContent}}</text>
     </view>
+    <view class='ques-img-wrap'>
+    <block wx:for="{{imgArr}}" wx:key="index">
+      <image src='{{item}}' mode='widthFix' bindtap='showImg' data-index='{{index}}'></image>
+    </block>
+  </view>
   </view>
   <view class="weui-cells">
     <view class="weui-cell">

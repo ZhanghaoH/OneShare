@@ -53,6 +53,7 @@ Page({
         answerNum: resData.answerNum,
         isPublic: resData.isPublic,
         loading: true,
+        imgArr: resData.images
       });
     });
     var user_id = wx.getStorageSync("user_id");
@@ -215,5 +216,14 @@ Page({
       //   }
       // })
     }
+  },
+  // 预览图片
+  showImg: function (e) {
+    var index = e.currentTarget.dataset.index
+    var tempUrlArr = that.data.imgArr
+    wx.previewImage({
+      urls: tempUrlArr,
+      current: tempUrlArr[index]
+    })
   }
 })
