@@ -4,34 +4,35 @@
 <loading hidden="{{published}}">
   问题发布中...
 </loading>
-  <view class="tweet-container">
-    <view class="top-container flex-row">
-      <image class="card-avatar" src="{{publisherPic}}"></image>
-      <view class="user-container">
-        <text class="card-name">{{ques}}</text>
-        <view class="label-container">
-          <text class="card-view"> {{publisher}}</text>
-          <text class="card-time"> | </text>
-          <image src="/image/ask-title.png" style="width: 18px;height: 18px;margin-left: 10px;"></image>
-          <text class="card-label">#{{label}}</text>
-          <text class="card-time"> | </text>
-          <text class="card-answer"> 回答：{{answerNum}}</text>
-        </view>
+<view class="tweet-container">
+  <view class="top-container flex-row">
+    <image class="card-avatar" src="{{publisherPic}}"></image>
+    <view class="user-container">
+      <text class="card-name">{{ques}}</text>
+      <view class="label-container">
+        <text class="card-view"> {{publisher}}</text>
+        <text class="card-time"> | </text>
+        <image src="/image/ask-title.png" style="width: 18px;height: 18px;margin-left: 10px;"></image>
+        <text class="card-label">#{{label}}</text>
+        <text class="card-time"> | </text>
+        <text class="card-answer"> 回答：{{answerNum}}</text>
       </view>
     </view>
-    <view class="middle-container flex-column ">
-      <text class="message-text ">{{qContent}}</text>
-    </view>
-    <view class='ques-img-wrap'>
+  </view>
+  <view class="middle-container flex-column ">
+    <text class="message-text ">{{qContent}}</text>
+  </view>
+  <view class='ques-img-wrap'>
     <block wx:for="{{imgArr}}" wx:key="index">
       <image src='{{item}}' mode='widthFix' bindtap='showImg' data-index='{{index}}'></image>
     </block>
   </view>
-  </view>
+</view>
+<form bindsubmit='sendNewAnswer' report-submit='true'>
   <view class="weui-cells">
     <view class="weui-cell">
       <view class="weui-cell__bd">
-        <textarea class='weui-textarea' placeholder="写出你的回答" maxlength="2000" auto-focus="true" bindinput="setContent" style='height:300px'/>
+        <textarea class='weui-textarea' placeholder="写出你的回答" maxlength="2000" auto-focus="true" bindinput="setContent" style='height:300px' />
         <view class="weui-textarea-counter">{{strLen}}/2000</view>
       </view>
     </view>
@@ -41,5 +42,6 @@
     <text>同意公开</text>
   </label>-->
   <view class="btn-area">
-    <button bindtap="sendNewAnswer" data-content="{{aContent}}" hover-start-time="200">发布</button>
+    <button form-type='submit' hover-start-time="200">发布</button>
   </view>
+</form>

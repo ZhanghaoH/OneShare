@@ -153,7 +153,7 @@ Page({
     switch (tipId) {
       // 回答问题
       case 0:
-        wx.navigateTo({
+        wx.redirectTo({
           url: '../answer/answer?questionId=' + that.data.qId,
         })
         break;

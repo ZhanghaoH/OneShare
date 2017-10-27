@@ -201,11 +201,18 @@ Page({
               duration: 1500,
               mask: true,
               success: function (res) {
+
+                // TODO: 发送模板消息
+                that.inform(formId);
+
+
                 wx.switchTab({
                   url: '../discover/discover',
                 });
+                
               },
             })
+
           }).catch(() => {
             wx.hideLoading();
             wx.showToast({
@@ -286,20 +293,16 @@ Page({
                           question.save(null, {
                             success: function (result) {
                               wx.hideLoading();
+
+                              // TODO: 发送模板消息
+
+
+                              
                               wx.switchTab({
                                 url: '../discover/discover',
                               });
-                              // that.inform(formId);
+                              that.inform(formId);
                               // 添加成功，返回成功之后的objectId（注意：返回的属性名字是id，不是objectId），你还可以在Bmob的Web管理后台看到对应的数据
-                              // common.showTip("成功发布问题", "success", function () {
-                              //   wx.hideToast()
-                              //   wx.redirectTo({
-                              //     url: '../notebook/notebook',
-                              //     complete: function (res) {
-                              //       // complete
-                              //     }
-                              //   })
-                              // });
                             },
                             error: function (result, error) {
                               // 添加失败

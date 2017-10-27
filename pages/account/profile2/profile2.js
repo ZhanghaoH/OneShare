@@ -31,7 +31,8 @@ Page({
           user: res,
           avatarUrl: res.userPic,
           nickName: username || nickName,
-          qualify: res.verified
+          qualify: res.verified,
+          userId: cuserid
         })
       })
       var query = new Bmob.Query(Bmob.User);

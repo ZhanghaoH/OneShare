@@ -361,7 +361,7 @@ view, scroll-view, input, text {
 .middle-container {
   padding: 15rpx;
   padding-left: 25rpx;
-  border-bottom: 1rpx solid #e1e1e1;
+  /* border-bottom: 1rpx solid #e1e1e1; */
 }
 
 .message-text {

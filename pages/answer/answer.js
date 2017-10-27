@@ -1,6 +1,7 @@
 //获取应用实例
 var app = getApp();
 var Bmob = require("../../utils/bmob.js");
+var util = require("../../utils/util.js");
 var common = require('../../utils/common.js');
 var dboperation = require('../../utils/DBOperation.js');
 var that;
@@ -36,7 +37,6 @@ Page({
   },
   onLoad: function (options) {
     that = this;
-    console.log(options.questionId);
     var Qid = options.questionId;
     dboperation.getById("Question", Qid).then((resData) => {
       console.log(resData);
@@ -53,8 +53,16 @@ Page({
         answerNum: resData.answerNum,
         isPublic: resData.isPublic,
         loading: true,
-        imgArr: resData.images
+        imgArr: resData.images,
+        publisherId: resData.publisherId
       });
+      dboperation.getUser(resData.publisherId).then((resData) => {
+        console.log(resData);
+        // var resData = resData.attributes;
+        that.setData({
+          userData: resData.userData
+        });
+        });
     });
     var user_id = wx.getStorageSync("user_id");
     that.setData({
@@ -70,6 +78,7 @@ Page({
         university: resData.university,
         major: resData.major,
         like: resData.like,
+        userData: resData.userData
       });
     })
   },
@@ -91,7 +100,8 @@ Page({
   },
   sendNewAnswer: function (e) {//发布回答
     that = this;
-    var content = e.target.dataset.content.replace(/\s+/g, " ");
+    var formId = e.detail.formId;
+    var content = that.data.aContent.replace(/\s+/g, " ");
     if (content == "") {
       common.showModal("回答内容不能为空！");
     }
@@ -134,6 +144,9 @@ Page({
             isLoading: false,
             published: true
           });
+          // 发送模板消息
+          that.inform(formId)
+
           wx.redirectTo({
             url: '../view/view?questionId='+ that.data.qId,
           });
@@ -216,6 +229,37 @@ Page({
       //   }
       // })
     }
+  },
+  inform: function (formId) {
+    var temp = {
+      "touser": that.data.userData.openid,
+      "template_id": "ku15Yz6RyCHEQ04hc-pC-y3U2MJ2GYHYHp-JIrEUU9w",
+      "page": "pages/view/view?questionId=" + that.data.qId,
+      "form_id": formId,
+      "data": {
+        "keyword1": {
+          "value": that.data.answerer,
+        },
+        "keyword2": {
+          "value": that.data.aContent,
+          "color": "#666666"
+        },
+        "keyword3": {
+          "value": "回答"
+        },
+        "keyword4": {
+          "value": util.formatTime(new Date())
+        },
+      },
+      "emphasis_keyword": ""
+    }
+    console.log(temp)
+    Bmob.sendMessage(temp).then(function (obj) {
+      console.log('发送成功')
+    },
+      function (err) {
+        common.showTip('失败' + JSON.stringify(err));
+      });
   },
   // 预览图片
   showImg: function (e) {
