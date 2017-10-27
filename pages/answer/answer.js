@@ -62,7 +62,7 @@ Page({
         that.setData({
           userData: resData.userData
         });
-        });
+      });
     });
     var user_id = wx.getStorageSync("user_id");
     that.setData({
@@ -112,21 +112,21 @@ Page({
       });
       var answers = that.data.answerList;
       var arr = [];
-      arr.push({ "id": that.data.user_id, "isScored": true});
+      arr.push({ "id": that.data.user_id, "isScored": true });
       console.log(arr);
-      var answerObj = { 
-        "questionId": that.data.qId, 
-        "publisherId": that.data.user_id, 
-        "content": content, 
-        "viewNum": 0, 
-        "viewArr": [], 
+      var answerObj = {
+        "questionId": that.data.qId,
+        "publisherId": that.data.user_id,
+        "content": content,
+        "viewNum": 0,
+        "viewArr": [],
         "paiedId": arr,
         "label": that.data.answererTitle,
         "major": that.data.major,
         "like": that.data.like,
         "publisherPic": that.data.answererPic,
         "publisher": that.data.answerer
-        };
+      };
       console.log(answers);
       dboperation.add("Answers", answerObj).then((resData) => {
         // var ans = {
@@ -139,7 +139,7 @@ Page({
         //   "publisher": that.data.answerer
         // };
         answers.push(resData);
-        dboperation.change("Question", that.data.qId, { "answers": answers,"answerNum": answers.length }).then(() => {
+        dboperation.change("Question", that.data.qId, { "answers": answers, "answerNum": answers.length }).then(() => {
           that.setData({
             isLoading: false,
             published: true
@@ -148,7 +148,7 @@ Page({
           that.inform(formId)
 
           wx.redirectTo({
-            url: '../view/view?questionId='+ that.data.qId,
+            url: '../view/view?questionId=' + that.data.qId,
           });
         }, () => {
           that.setData({
@@ -231,8 +231,8 @@ Page({
     }
   },
   inform: function (formId) {
+    console.log(that.data.userData.openid)
     var temp = {
-      "touser": that.data.userData.openid,
       "template_id": "ku15Yz6RyCHEQ04hc-pC-y3U2MJ2GYHYHp-JIrEUU9w",
       "page": "pages/view/view?questionId=" + that.data.qId,
       "form_id": formId,
