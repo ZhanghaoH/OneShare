@@ -189,6 +189,7 @@ Page({
           if (imgLength == j) {
             console.log(imgLength, urlArr);
           }
+
           let data = { "ques": ques, "content": content, "label": that.data.label[that.data.labelIndex], "images": urlArr }
           let question = dboperation.change("Question", tempQ, data).then(() => {
             // let ans = dboperation.change("Answer", tempQ, data2)
@@ -203,20 +204,20 @@ Page({
               success: function (res) {
 
                 // TODO: 发送模板消息
-                that.inform(formId);
+                that.inform();
 
 
                 wx.switchTab({
                   url: '../discover/discover',
                 });
-                
+
               },
             })
 
           }).catch(() => {
             wx.hideLoading();
             wx.showToast({
-              title: '补充问题失败失败',
+              title: '补充问题失败',
               icon: 'success',
               image: '',
               duration: 1500,
@@ -228,9 +229,41 @@ Page({
           console.log(error)
         });
       }
-    }
+    } else {
+      let data = { "ques": ques, "content": content, "label": that.data.label[that.data.labelIndex], "images": urlArr }
+      let question = dboperation.change("Question", tempQ, data).then(() => {
+        // let ans = dboperation.change("Answer", tempQ, data2)
+        // Promise.all([ques, ans]).then(() => {
+        wx.hideLoading();
+        wx.showToast({
+          title: '修改成功',
+          icon: 'success',
+          image: '',
+          duration: 1500,
+          mask: true,
+          success: function (res) {
 
-  },
+            // TODO: 发送模板消息
+            that.inform();
+            wx.switchTab({
+              url: '../discover/discover',
+            });
+
+          },
+        })
+
+      }).catch(() => {
+        wx.hideLoading();
+        wx.showToast({
+          title: '补充问题失败失败',
+          icon: 'success',
+          image: '',
+          duration: 1500,
+          mask: true,
+        })
+      })
+    }
+},
   // 生成新问题
   createQuestion: function () {
     console.log("create")
@@ -297,7 +330,7 @@ Page({
                               // TODO: 发送模板消息
 
 
-                              
+
                               wx.switchTab({
                                 url: '../discover/discover',
                               });
@@ -318,17 +351,60 @@ Page({
                         error: function (error) {
                         }
                       });
-                    //   //如果担心网络延时问题，可以去掉这几行注释，就是全部上传完成后显示。
-                    //   showPic(urlArr, that)
+                      //   //如果担心网络延时问题，可以去掉这几行注释，就是全部上传完成后显示。
+                      //   showPic(urlArr, that)
                     }
 
                   }, function (error) {
                     console.log(error)
                   });
                 }
+              }else{
+                query.get(ress.data, {
+                  success: function (result) {
+                    publisherPic = result.get("userPic");
+                    publisherName = result.get("username");
+                    question.set("ques", ques);
+                    question.set("content", content);
+                    question.set("isPublic", that.data.isPublic);
+                    question.set("caller", that.data.callerId);
+                    question.set("publisher", publisherName);
+                    question.set("publisherPic", publisherPic);
+                    question.set("label", that.data.label[that.data.labelIndex]);
+                    question.set("answerNum", 0);
+                    question.set("publisherId", ress.data);
+                    question.set("answers", []);
+                    question.set("images", urlArr);
+                    console.log(question);
+                    question.save(null, {
+                      success: function (result) {
+                        wx.hideLoading();
+
+                        // TODO: 发送模板消息
+
+
+
+                        wx.switchTab({
+                          url: '../discover/discover',
+                        });
+                        that.inform(formId);
+                        // 添加成功，返回成功之后的objectId（注意：返回的属性名字是id，不是objectId），你还可以在Bmob的Web管理后台看到对应的数据
+                      },
+                      error: function (result, error) {
+                        // 添加失败
+                        console.log(error)
+                        common.showModal("发布问题失败");
+                        that.setData({
+                          published: true
+                        })
+
+                      }
+                    });
+                  },
+                  error: function (error) {
+                  }
+                });
               }
-
-
             }
           })
         }).catch(() => {

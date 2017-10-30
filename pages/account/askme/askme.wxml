@@ -13,7 +13,6 @@
                 <view class="weui-media-box__info__meta weui-media-time">时间：{{item.updatedAt}}</view>
               </view>
             </navigator>
-
           </view>
         </view>
       </view>

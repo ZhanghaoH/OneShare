@@ -1,7 +1,7 @@
 var Bmob = require('../../utils/bmob.js');
 var common = require('../../utils/common.js');
 var dboperation = require('../../utils/DBOperation.js');
-var that;
+var that,count = 10;
 var app = getApp();
 var currentUser;
 Page({
@@ -12,9 +12,7 @@ Page({
     rankIndex: 0,
     writeDiary: false,
     loading: true,
-    windowHeight: 0,
-    windowWidth: 0,
-    limit: 15,
+    limit: 10,
     questionList: [],
     modifyDiarys: false,
     userInfo: {},
@@ -22,6 +20,7 @@ Page({
   },
   onLoad: function () {
     that = this;
+    that.loadData(false);
     // var openId = wx.getStorageSync("user_openid")
     // //传参数金额，名称，描述,openid
     // Bmob.Pay.wechatPay(0.01, '名称1', '描述', openId).then(function (resp) {
@@ -68,15 +67,6 @@ Page({
     // });
   },
   onShow: function () {
-    wx.getSystemInfo({
-      success: (res) => {
-        that.setData({
-          windowHeight: res.windowHeight,
-          windowWidth: res.windowWidth
-        })
-      }
-    });
-    that.loadData(false);
   },
   onShareAppMessage: function () {
     return {
@@ -86,10 +76,14 @@ Page({
     }
   },
   onPullDownRefresh: function () {
+    count = 10
+    this.setData({
+      limit: 10
+    })
     that.loadData(false);
   },
   onReachBottom: function () {
-    var limit = that.data.limit + 2;
+    var limit = count = that.data.limit + 10;
     this.setData({
       limit: limit
     })
@@ -107,7 +101,7 @@ Page({
     var rankIndex = that.data.rankIndex;
     console.log(rankIndex);
     if (isLoadMore) {
-      query.skip(15);
+      query.skip(count);
     };
     // 查询所有数据
     query.equalTo("isPublic", true);

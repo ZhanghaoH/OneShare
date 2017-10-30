@@ -233,6 +233,7 @@ Page({
   inform: function (formId) {
     console.log(that.data.userData.openid)
     var temp = {
+      "touser": that.data.userData.openid,
       "template_id": "ku15Yz6RyCHEQ04hc-pC-y3U2MJ2GYHYHp-JIrEUU9w",
       "page": "pages/view/view?questionId=" + that.data.qId,
       "form_id": formId,

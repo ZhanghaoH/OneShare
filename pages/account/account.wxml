@@ -34,7 +34,7 @@
               </view>
               <view class="weui-cell__ft weui-cell__ft_in-access"></view>
             </navigator>
-            <navigator url="askme/askme" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <!-- <navigator url="askme/askme" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
               <view class="weui-cell__hd">
                 <image src="/image/ask.png" style="width: 20px;height: 20px;margin-right: 5px;padding-top: 5px" />
               </view>
@@ -42,7 +42,7 @@
                 <view>向我提问的</view>
               </view>
               <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-            </navigator>
+            </navigator> -->
             <!--<navigator url="verify/verify" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
               <view class="weui-cell__hd">
                 <image src="/image/verified.png" style="width: 20px;height: 20px;margin-right: 5px;padding-top: 5px" />

@@ -969,8 +969,8 @@ icon {
 
 .weui-media-box__desc {
   /* color: #999; */
-  font-size: 13px;
-  line-height: 1.2;
+  /* font-size: 13px;
+  line-height: 1.2; */
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -1355,8 +1355,8 @@ icon {
 }
 
 .btn-area {
-  margin-top: 20rpx;
-  margin-bottom: 20rpx;
+  margin-top: 20px;
+  margin-bottom: 20px;
   box-sizing: border-box;
   width: 100%;
   padding: 0 30rpx;

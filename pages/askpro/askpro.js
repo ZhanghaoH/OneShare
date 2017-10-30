@@ -2,9 +2,10 @@
 const app = getApp()
 const Bmob = require("../../utils/bmob.js");
 const common = require('../../utils/common.js');
+const util = require("../../utils/util.js");
 const dboperation = require('../../utils/DBOperation.js');
 const pay = require('../../utils/pay.js');
-var that, tempQ, urlArr, tempUrlArr;
+var that, tempQ, urlArr, tempUrlArr, tempQId;
 Page({
   data: {
     isPublic: true,
@@ -61,6 +62,13 @@ Page({
         })
       })
     }
+    dboperation.getUser(that.data.callerId).then((resData) => {
+      console.log(resData);
+      // var resData = resData.attributes;
+      that.setData({
+        userData: resData.userData
+      });
+    });
 
   },
   onShareAppMessage: function () {
@@ -155,10 +163,10 @@ Page({
         title: '问题发布中...',
         mask: true,
       })
-      that.data.isAddition ? that.changeQuestion() : that.createQuestion()
+      that.data.isAddition ? that.changeQuestion(formId) : that.createQuestion(formId)
     }
   },
-  changeQuestion() {
+  changeQuestion: function (formId) {
     console.log("change")
     let content = that.data.content;
     let ques = that.data.ques;
@@ -221,11 +229,39 @@ Page({
           console.log(error)
         });
       }
+    } else {
+      let data = { "ques": ques, "content": content, "label": that.data.label[that.data.labelIndex], "images": urlArr }
+      let question = dboperation.change("Question", tempQ, data).then(() => {
+        // let ans = dboperation.change("Answer", tempQ, data2)
+        // Promise.all([ques, ans]).then(() => {
+        wx.hideLoading();
+        wx.showToast({
+          title: '修改成功',
+          icon: 'success',
+          image: '',
+          duration: 1500,
+          mask: true,
+          success: function (res) {
+            wx.switchTab({
+              url: '../discover/discover',
+            });
+          },
+        })
+      }).catch(() => {
+        wx.hideLoading();
+        wx.showToast({
+          title: '补充问题失败失败',
+          icon: 'success',
+          image: '',
+          duration: 1500,
+          mask: true,
+        })
+      })
     }
 
   },
   // 生成新问题
-  createQuestion: function () {
+  createQuestion: function (formId) {
     console.log("create")
     let content = that.data.content;
     let ques = that.data.ques;
@@ -286,20 +322,12 @@ Page({
                           question.save(null, {
                             success: function (result) {
                               wx.hideLoading();
+                              tempQId = result.id
+                              that.inform(formId);
                               wx.switchTab({
                                 url: '../discover/discover',
                               });
-                              // that.inform(formId);
-                              // 添加成功，返回成功之后的objectId（注意：返回的属性名字是id，不是objectId），你还可以在Bmob的Web管理后台看到对应的数据
-                              // common.showTip("成功发布问题", "success", function () {
-                              //   wx.hideToast()
-                              //   wx.redirectTo({
-                              //     url: '../notebook/notebook',
-                              //     complete: function (res) {
-                              //       // complete
-                              //     }
-                              //   })
-                              // });
+
                             },
                             error: function (result, error) {
                               // 添加失败
@@ -323,6 +351,47 @@ Page({
                     console.log(error)
                   });
                 }
+              } else {
+                query.get(ress.data, {
+                  success: function (result) {
+                    publisherPic = result.get("userPic");
+                    publisherName = result.get("username");
+                    question.set("ques", ques);
+                    question.set("content", content);
+                    question.set("isPublic", that.data.isPublic);
+                    question.set("caller", that.data.callerId);
+                    question.set("publisher", publisherName);
+                    question.set("publisherPic", publisherPic);
+                    question.set("label", that.data.label[that.data.labelIndex]);
+                    question.set("answerNum", 0);
+                    question.set("publisherId", ress.data);
+                    question.set("answers", []);
+                    question.set("images", urlArr);
+                    console.log(question);
+                    question.save(null, {
+                      success: function (result) {
+                        wx.hideLoading();
+                        tempQId = result.id
+                        that.inform(formId);
+                        wx.switchTab({
+                          url: '../discover/discover',
+                        });
+
+                      },
+                      error: function (result, error) {
+                        // 添加失败
+                        console.log(error)
+                        common.showModal("发布问题失败");
+                        that.setData({
+                          published: true
+                        })
+
+                      }
+                    });
+                  },
+                  error: function (error) {
+                  }
+                });
               }
 
 
@@ -341,33 +410,30 @@ Page({
     })
   },
   inform: function (formId) {
-    console.log(formId);
-    var currentUser = Bmob.User.current();
+    console.log(that.data.userData.openid)
     var temp = {
-      "touser": currentUser.get("openid"),
-      "template_id": "B-2GcobfYnptevxY8G3SdA72YLYGZpOoJO_FEHlouWg",
-      "page": "",
+      "touser": that.data.userData.openid,
+      "template_id": "9MnPiYpJoNVTZSFjiT1UqZWL8Wg2PfsY3M4GelhkOps",
+      "page": "pages/view/view?questionId=" + tempQId,
       "form_id": formId,
       "data": {
         "keyword1": {
-          "value": "SDK测试内容",
-          "color": "#173177"
+          "value": wx.getStorageSync('my_username')
         },
         "keyword2": {
-          "value": "199.00"
+          "value": that.data.ques,
+          "color": "#666666"
         },
         "keyword3": {
-          "value": "123456789"
+          "value": "提问"
         },
         "keyword4": {
-          "value": "2015年01月05日 12:30"
+          "value": util.formatTime(new Date())
         },
-        "keyword5": {
-          "value": "恭喜您支付成功，如有疑问请反馈与我"
-        }
       },
-      "emphasis_keyword": "keyword1.DATA"
+      "emphasis_keyword": ""
     }
+    console.log(temp)
     Bmob.sendMessage(temp).then(function (obj) {
       console.log('发送成功')
     },
