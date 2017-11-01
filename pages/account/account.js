@@ -76,8 +76,8 @@ Page({
           nickName = e.detail.userInfo.nickName;
           that.setData({
             userInfo: e.detail.userInfo,
-            // avatarUrl: e.detail.userInfo.avatarUrl,
-            // nickName: username || nickName
+            avatarUrl: e.detail.userInfo.avatarUrl,
+            nickName: username || nickName
           });
         };
         if (!wx.getStorageSync("login")) {

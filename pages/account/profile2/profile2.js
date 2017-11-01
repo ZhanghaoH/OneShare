@@ -26,11 +26,11 @@ Page({
       let cuserid = Bmob.User.current().id;
       dboperation.getUser(cuserid).then(res => {
         let username = res.username;
-        that = this;
+        console.log(res)
         that.setData({
           user: res,
           avatarUrl: res.userPic,
-          nickName: username || nickName,
+          nickName: username,
           qualify: res.verified,
           userId: cuserid
         })
@@ -44,14 +44,14 @@ Page({
           // 结果信息包含在attribute中
           var resData = result.attributes;
           var arr_title = that.data.degree;
-          console.log(arr_title);
-          var index;
-          arr_title.map((e, i) => {
-            if (e == resData.title) {
-              index = i;
-            }
-            ;
-          });
+          var index = arr_title.findIndex((item, index) => item === result.get('title')
+          );
+          // arr_title.map((e, i) => {
+          //   if (e == resData.title) {
+          //     index = i;
+          //   }
+          //   ;
+          // });
           console.log(index);
           cudata = resData;
           if (typeof resData == "object") {
@@ -62,7 +62,7 @@ Page({
               area: resData.area,
               university: resData.university,
               major: resData.major,
-              titleIndex: index,
+              titleIndex: index == -1 ? 0:index,
             });
           } else {
             wx.showModal({
@@ -110,10 +110,10 @@ Page({
             wx.switchTab({
               url: '../account',
             });
-          }else {
+          } else {
             that.onLoad();
           };
-        }, () => { common.showModal(txt_tips + "失败，请重新尝试"); })
+        }, (err) => { common.showModal(txt_tips + "失败，请重新尝试：" + err.message); })
       } else {
         that.setData({
           popText: "未做任何修改，不作修改点左上角返回"
@@ -206,12 +206,18 @@ Page({
     var q = dboperation.getBy("Question", "publisherId", that.data.userId);
     Promise.all([a, q]).then(resData => {
       console.log(resData);
-      resData[0].map(e => {
-        dboperation.change("Answers", e.id, obj).then(() => { console.log("更新成功") }, () => { console.log("更新shibai") });
-      });
-      resData[1].map(e => {
-        dboperation.change("Question", e.id, obj).then(() => { console.log("更新成功") }, () => { console.log("更新shibai") });
-      });
+      if (resData[0].length > 0) {
+        resData[0].map(e => {
+          dboperation.change("Answers", e.id, obj).then(() => { console.log("更新成功") }, () => { console.log("更新shibai") });
+        });
+
+      }
+      if (resData[1].length > 0) {
+        resData[1].map(e => {
+          dboperation.change("Question", e.id, obj).then(() => { console.log("更新成功") }, () => { console.log("更新shibai") });
+        });
+
+      }
     });
   },
 })

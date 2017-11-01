@@ -78,7 +78,7 @@ Page({
         university: resData.university,
         major: resData.major,
         like: resData.like,
-        userData: resData.userData
+        // userData: resData.userData
       });
     })
   },

@@ -42,7 +42,7 @@
         </view>
         <view class="zan-cell zan-form__item">
           <text class="zan-form__title">学历</text>
-          <picker class="zan-form__content" mode="selector" range="{{ degree }}" name="title" value="{{titleIndex}}" bindchange="onTitleChange">
+          <picker class="zan-form__content" mode="selector" range="{{ degree}}" name="title" value="{{titleIndex}}" bindchange="onTitleChange">
             {{ degree[titleIndex] }}
           </picker>
         </view>

@@ -19,6 +19,7 @@
           </view>
         </view>
       </view>
+      <view style="text-align:center;line-height:2.555" wx:if="{{qList.length == 0}}">暂时没有提出问题</view>
     </view>
     <view class="weui-panel">
       <view class="weui-panel__hd" bindtap="showAlist">我的回答(点击显示/收起)</view>
@@ -33,13 +34,14 @@
             </view>
           </navigator>
           <view class="item-operate">
-              <icon type="cancel" size="16"></icon>
-              <text class="del" bindtap="delAnswer" data-id="{{item.objectId}}">删除</text>
-              <!-- <icon type="success" size="16"></icon>
+            <icon type="cancel" size="16"></icon>
+            <text class="del" bindtap="delAnswer" data-id="{{item.objectId}}">删除</text>
+            <!-- <icon type="success" size="16"></icon>
               <text bindtap="toModifyDiary" data-id="{{item.objectId}}" data-content="{{item.content}}" data-title="{{item.title}}">编辑</text> -->
-            </view>
+          </view>
         </view>
       </view>
+      <view style="text-align:center;line-height:2.555" wx:if="{{aList.length == 0}}">暂时没有回答</view>
     </view>
   </view>
   <view class="page__bd">
@@ -58,12 +60,12 @@
           <!-- <view class="item-operate">
             <icon type="cancel" size="16"></icon>
             <text class="del" bindtap="delQuestionMe" data-id="{{item.objectId}}">删除</text> -->
-            <!-- <icon type="success" size="16"></icon>
+          <!-- <icon type="success" size="16"></icon>
             <text bindtap="toModifyDiary" data-id="{{item.objectId}}" data-content="{{item.content}}" data-title="{{item.title}}">编辑</text> -->
           <!-- </view> -->
         </view>
       </view>
+      <view style="text-align:center;line-height:2.555" wx:if="{{qMeList.length == 0}}">暂时没收到提问</view>
     </view>
-    <view style="text-align:center;line-height:2.555" wx:if="{{qMeList.length == 0}}">暂时没收到提问</view>
   </view>
 </view>
