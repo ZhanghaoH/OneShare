@@ -21,7 +21,7 @@
     <view  class="top-container flex-row" data-id="{{item.objectId}}" bindtap="toView">
       <image class="card-avatar" src="{{item.publisherPic}}"></image>
       <view class="user-container">
-        <text class="card-name">{{item.ques}}</text>
+        <view class="card-name">{{item.ques}}</view>
         <view class="label-container">
           <text class="card-view">{{item.publisher}}</text>
           <!-- <image src="/image/ask-title.png" style="width: 18px;height: 18px;"></image> -->
@@ -45,6 +45,6 @@
     <!-- </view> -->
   </view>
 </view>
-<modal title="温馨提示 " wx:if="{{answererModal}}" confirm-text="是 " cancel-text="否 " bindconfirm="answererConfirm" bindcancel="answererCancel">
+<!-- <modal title="温馨提示 " wx:if="{{answererModal}}" confirm-text="是 " cancel-text="否 " bindconfirm="answererConfirm" bindcancel="answererCancel">
   您需要先通过认证才能提问或答题。是否确认前往认证页面？
-</modal>
+</modal> -->

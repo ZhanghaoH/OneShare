@@ -14,7 +14,7 @@
   </view>
 
   <view class="page__bd">
-    <form bindsubmit="updateInfo">
+    <form bindsubmit="updateInfo" report-submit='true'>
       <view class="zan-form">
         <view class="zan-cell zan-form__item">
           <text class="zan-form__title">用户名</text>

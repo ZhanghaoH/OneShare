@@ -23,14 +23,6 @@ Page({
   },
   onLoad: function () {
     that = this;
-    wx.getSystemInfo({
-      success: (res) => {
-        that.setData({
-          windowHeight: res.windowHeight,
-          windowWidth: res.windowWidth
-        })
-      }
-    })
     var user_id = Bmob.User.current().id;
     var qList = that.data.qList;
     var aList = that.data.aList;
@@ -71,53 +63,45 @@ Page({
     });
   },
   onShow: function (){
-    wx.getSystemInfo({
-      success: (res) => {
-        that.setData({
-          windowHeight: res.windowHeight,
-          windowWidth: res.windowWidth
-        })
-      }
-    })
-    var user_id = Bmob.User.current().id;
-    var qList = that.data.qList;
-    var aList = that.data.aList;
-    dboperation.getBy("Question", "publisherId", user_id).then(resData => {
-      console.log(resData);
-      if (resData.length != 0) {
-        resData.map((e, i) => {
-          qList.push(e);
-        })
-        that.setData({
-          qList: qList,
-        })
-      }
-    });
-    dboperation.getBy("Answers", "publisherId", user_id).then(resData => {
-      console.log(resData);
-      if (resData.length != 0) {
-        resData.map((e, i) => {
-          console.log(e);
-          aList.push(e);
-        });
-        that.setData({
-          aList: aList,
-        })
-      }
-    });
-    var qMeList = [];
-    dboperation.getBy("Question", "caller", user_id).then(resData => {
-      console.log(resData);
-      if (resData.length != 0) {
-        resData.map((e, i) => {
-          console.log(e);
-          qMeList.push(e);
-        })
-        that.setData({
-          qMeList: qMeList,
-        })
-      }
-    });
+    // var user_id = Bmob.User.current().id;
+    // var qList = that.data.qList;
+    // var aList = that.data.aList;
+    // dboperation.getBy("Question", "publisherId", user_id).then(resData => {
+    //   console.log(resData);
+    //   if (resData.length != 0) {
+    //     resData.map((e, i) => {
+    //       qList.push(e);
+    //     })
+    //     that.setData({
+    //       qList: qList,
+    //     })
+    //   }
+    // });
+    // dboperation.getBy("Answers", "publisherId", user_id).then(resData => {
+    //   console.log(resData);
+    //   if (resData.length != 0) {
+    //     resData.map((e, i) => {
+    //       console.log(e);
+    //       aList.push(e);
+    //     });
+    //     that.setData({
+    //       aList: aList,
+    //     })
+    //   }
+    // });
+    // var qMeList = [];
+    // dboperation.getBy("Question", "caller", user_id).then(resData => {
+    //   console.log(resData);
+    //   if (resData.length != 0) {
+    //     resData.map((e, i) => {
+    //       console.log(e);
+    //       qMeList.push(e);
+    //     })
+    //     that.setData({
+    //       qMeList: qMeList,
+    //     })
+    //   }
+    // });
   },
   onShareAppMessage: function () {
     return {

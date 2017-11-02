@@ -1,7 +1,7 @@
 var Bmob = require('../../utils/bmob.js');
 var common = require('../../utils/common.js');
 var dboperation = require('../../utils/DBOperation.js');
-var that,count = 10;
+var that, count = 10;
 var app = getApp();
 var currentUser;
 Page({
@@ -186,36 +186,39 @@ Page({
   },
   toView: function (event) {
     that = this;
-    var query = new Bmob.Query(Bmob.User);
-    wx.getStorage({
-      key: 'user_id',
-      success: function (res) {
-        dboperation.getUser(res.data).then((resData) => {
-          if (resData.verified) {
-            var dataset = event.currentTarget.dataset;
-            wx.navigateTo({
-              url: '../view/view?questionId=' + dataset.id,
-            })
-          } else {
-            that.setData({
-              answererModal: true,
-            })
-            console.log(that.data.answererModal);
-          }
-        }, () => {
-          wx.showModal({
-            title: '提示',
-            content: '数据请求失败！',
-            showCancel: false
-          })
-        });
-      },
-      fail: function (res) {
-        that.setData({
-          answererModal: true,
-        })
-      }
+    let dataset = event.currentTarget.dataset;
+    wx.navigateTo({
+      url: '../view/view?questionId=' + dataset.id,
     })
+    // var query = new Bmob.Query(Bmob.User);
+    // wx.getStorage({
+    //   key: 'user_id',
+    //   success: function (res) {
+    //     dboperation.getUser(res.data).then((resData) => {
+    //       if (resData.verified) {
+    //         wx.navigateTo({
+    //           url: '../view/view?questionId=' + dataset.id,
+    //         })
+    //       } else {
+    //         that.setData({
+    //           answererModal: true,
+    //         })
+    //         console.log(that.data.answererModal);
+    //       }
+    //     }, () => {
+    //       wx.showModal({
+    //         title: '提示',
+    //         content: '数据请求失败！',
+    //         showCancel: false
+    //       })
+    //     });
+    //   },
+    //   fail: function (res) {
+    //     that.setData({
+    //       answererModal: true,
+    //     })
+    //   }
+    // })
   },
   toAsk: function (event) {
     that = this;

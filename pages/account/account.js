@@ -123,6 +123,7 @@ Page({
                               user.set("university", '')
                               user.set("major", '');
                               user.set("title", '');
+                              user.set("formIds", []);
                               user.set("like", 0);//默认初始值为0                       
                               user.set("verified", false); //是否认证为回答者
                               user.signUp(null, {

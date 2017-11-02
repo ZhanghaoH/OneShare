@@ -187,6 +187,7 @@ view, scroll-view, input, text {
   flex-direction: column;
   /* width: 550rpx; */
   flex: auto;
+  overflow: hidden
 }
 
 .card-avatar {
@@ -211,10 +212,10 @@ view, scroll-view, input, text {
   color: #8999a5;
   margin-top: 8rpx;
   margin-left: 8rpx;
-  width: 100rpx;
+  width: 90px;
   overflow: hidden;
   text-overflow: ellipsis;
-  flex: 1;
+  /* flex: 1; */
 }
 
 .card-view {
@@ -222,11 +223,12 @@ view, scroll-view, input, text {
   color: #8999a5;
   margin-top: 8rpx;
   margin-left: 10px;
-  width: 180rpx;
+  min-width: 60px;
+  max-width: 100px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  flex: 1;
+  /* flex: 1; */
 }
 
 .card-answer {
@@ -234,8 +236,8 @@ view, scroll-view, input, text {
   color: #8999a5;
   margin-top: 8rpx;
   /* margin-left: 10px; */
-  width: 110rpx;
-  flex: 1;
+  width: 50px;
+  /* flex: 1; */
 }
 
 .card-name {

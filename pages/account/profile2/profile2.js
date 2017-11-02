@@ -32,7 +32,8 @@ Page({
           avatarUrl: res.userPic,
           nickName: username,
           qualify: res.verified,
-          userId: cuserid
+          userId: cuserid,
+          formIds: res.formIds
         })
       })
       var query = new Bmob.Query(Bmob.User);
@@ -88,9 +89,9 @@ Page({
   updateInfo: function (e) {
     that = this;
     var info = e.detail.value;
+    var formId = e.detail.formId
     var txt_tips = "修改";
     info.title = that.data.degree[info.title];
-    console.log(info);
     if (that.valid(info)) {
       for (let key in info) {
         if (cudata[key] == info[key]) {
@@ -98,6 +99,8 @@ Page({
         }
       };
       if (JSON.stringify(info) != "{}") {
+        that.data.formIds.push(formId)
+        info.formIds = that.data.formIds
         console.log(info);
         if (!cudata.verified) {
           info.verified = true;

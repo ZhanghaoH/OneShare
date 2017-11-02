@@ -34,6 +34,7 @@ Page({
         console.log(resData);
         that.setData({
           caller: resData,
+          toformIds: resData.formIds,
           callerId: tmpUser,
           isPublic: false,
           hidden: false,
@@ -62,14 +63,20 @@ Page({
         })
       })
     }
-    dboperation.getUser(that.data.callerId).then((resData) => {
+
+    dboperation.getUser(userId).then((resData) => {
       console.log(resData);
-      // var resData = resData.attributes;
       that.setData({
-        userData: resData.userData
+        formIds: resData.formIds
       });
     });
-
+    // dboperation.getUser(that.data.callerId).then((resData) => {
+    //   console.log(resData);
+    //   // var resData = resData.attributes;
+    //   that.setData({
+    //     userData: resData.userData
+    //   });
+    // });
   },
   onShareAppMessage: function () {
     return {
@@ -163,10 +170,13 @@ Page({
         title: '问题发布中...',
         mask: true,
       })
+      dboperation.changeUser(that.data.user_id, { "formIds": that.data.formIds.push(formId) }).then(() => {
+        console.log('反馈成功', 'success');
+      }, (err) => { console.log("失败，请重新尝试：" + err.message); })
       that.data.isAddition ? that.changeQuestion(formId) : that.createQuestion(formId)
     }
   },
-  changeQuestion: function (formId) {
+  changeQuestion: function () {
     console.log("change")
     let content = that.data.content;
     let ques = that.data.ques;
@@ -415,7 +425,7 @@ Page({
       "touser": that.data.userData.openid,
       "template_id": "9MnPiYpJoNVTZSFjiT1UqZWL8Wg2PfsY3M4GelhkOps",
       "page": "pages/view/view?questionId=" + tempQId,
-      "form_id": formId,
+      "form_id": that.data.toformIds[0],
       "data": {
         "keyword1": {
           "value": wx.getStorageSync('my_username')
@@ -433,13 +443,14 @@ Page({
       },
       "emphasis_keyword": ""
     }
-    console.log(temp)
-    Bmob.sendMessage(temp).then(function (obj) {
-      console.log('发送成功')
-    },
-      function (err) {
+    that.data.formIds.shift()
+    dboperation.changeUser(that.data.userId, { "formIds": that.data.toformIds }).then(() => {
+      Bmob.sendMessage(temp).then(function (obj) {
+        console.log('发送成功')
+      }, function (err) {
         common.showTip('失败' + JSON.stringify(err));
       });
+    }, (err) => { common.showModal(txt_tips + "失败，请重新尝试：" + err.message); })
   },
   delImg: function () {//图片删除
     var path;

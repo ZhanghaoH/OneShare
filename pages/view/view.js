@@ -27,6 +27,7 @@ Page({
     user: {},
     content: "",
     autoFocus: true,
+    verified: false
     // tipStr: btnText[0]
   },
   onLoad: function (options) {
@@ -45,6 +46,7 @@ Page({
         university: resData.university,
         major: resData.major,
         likeNum: resData.like,
+        verified: resData.verified,
       });
     });
     dboperation.getById("Question", Qid).then((resData) => {
@@ -137,9 +139,9 @@ Page({
           let nobj = { "id": user_id, "isScored": false };
           // console.log(arrPay.some(el => el.id === a_p_id))
           // if (!arrPay.some(el => el.id === a_p_id)) {
-            arrPay.push(nobj);
-            console.log("修改围观人数了")
-            return dboperation.change("Answers", dataset.id, { "paiedId": arrPay, "viewNum": arrPay.length - 1 });
+          arrPay.push(nobj);
+          console.log("修改围观人数了")
+          return dboperation.change("Answers", dataset.id, { "paiedId": arrPay, "viewNum": arrPay.length - 1 });
           // }
         }).then(() => {
           wx.navigateTo({ url: '../viewAnswer/viewAnswer?answer=' + JSON.stringify(answer) });
@@ -153,9 +155,28 @@ Page({
     switch (tipId) {
       // 回答问题
       case 0:
-        wx.redirectTo({
-          url: '../answer/answer?questionId=' + that.data.qId,
-        })
+        if (that.data.verified) {
+          wx.redirectTo({
+            url: '../answer/answer?questionId=' + that.data.qId,
+          })
+        } else {
+          wx.showModal({
+            title: '温馨提示',
+            content: '您需要先通过认证才能答题。是否确认前往认证页面？',
+            showCancel: true,
+            confirmColor: 'red',
+            success: function (res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+                wx.switchTab({
+                  url: '../account/account',
+                })
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            },
+          })
+        }
         break;
       // 补充问题
       case 1:

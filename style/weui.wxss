@@ -982,7 +982,7 @@ icon {
   margin-top: 15px;
   padding-bottom: 5px;
   font-size: 13px;
-  color: #cecece;
+  color: #999;
   line-height: 1em;
   list-style: none;
   overflow: hidden;

@@ -37,6 +37,7 @@ Page({
   },
   onLoad: function (options) {
     that = this;
+    // 问题id
     var Qid = options.questionId;
     dboperation.getById("Question", Qid).then((resData) => {
       console.log(resData);
@@ -54,13 +55,16 @@ Page({
         isPublic: resData.isPublic,
         loading: true,
         imgArr: resData.images,
+        // 问题发布者的id
         publisherId: resData.publisherId
       });
+      // 获取问题发布者formId，有答案时直接借用formId推送
       dboperation.getUser(resData.publisherId).then((resData) => {
         console.log(resData);
         // var resData = resData.attributes;
         that.setData({
-          userData: resData.userData
+          userData: resData.userData,
+          toformIds: resData.formIds
         });
       });
     });
@@ -78,7 +82,7 @@ Page({
         university: resData.university,
         major: resData.major,
         like: resData.like,
-        // userData: resData.userData
+        formIds: resData.formIds
       });
     })
   },
@@ -129,24 +133,17 @@ Page({
       };
       console.log(answers);
       dboperation.add("Answers", answerObj).then((resData) => {
-        // var ans = {
-        //   "aid": resData,
-        //   "viewNum": 0,
-        //   "paiedId": [that.data.user_id],
-        //   "label": that.data.answererTitle,
-        //   "like": that.data.like,
-        //   "publisherPic": that.data.answererPic,
-        //   "publisher": that.data.answerer
-        // };
         answers.push(resData);
         dboperation.change("Question", that.data.qId, { "answers": answers, "answerNum": answers.length }).then(() => {
           that.setData({
             isLoading: false,
             published: true
           });
+          dboperation.changeUser(that.data.user_id, { "formIds": that.data.formIds.push(formId) }).then(() => {
+            console.log('反馈成功', 'success');
+          }, (err) => { console.log("失败，请重新尝试：" + err.message); })
           // 发送模板消息
-          that.inform(formId)
-
+          that.inform()
           wx.redirectTo({
             url: '../view/view?questionId=' + that.data.qId,
           });
@@ -158,109 +155,42 @@ Page({
           common.showModal("出现错误，请重新尝试");
         })
       });
-      // var Answer = Bmob.Object.extend("answer");
-      // var answer = new Answer();
-      // answer.set("content", content);
-      // answer.set("isPublic", !that.data.ishide);
-      // answer.set("publisherId", that.data.answererId);
-      // answer.set("publisher", that.data.answerer);
-      // answer.set("publisherPic", that.data.answererPic);
-      // answer.set("publisherUniversity", that.data.university);
-      // answer.set("publisherTitle", that.data.answererTitle);
-      // answer.set("publisherLike", that.data.likeNum);
-      // answer.set("publisherMajor", that.data.major);
-      // answer.set("questionId", that.data.qId),
-      //   answer.set("viewNum", 0);
-      // answer.set("likeNum", 0);
-      // answer.save(null, {
-      //   success: function (result) {
-      //     if (that.data.question.get("isAnswered") == false) {
-      //       that.data.question.set("isAnswered", true);
-      //       that.data.question.set("answerNum", 1);
-      //       that.data.question.save(null, {
-      //         success: function (result) {
-      //           console.log("updata answerNum succeed!");
-      //           common.showTip("成功发布问题", "success", function () {
-      //             wx.hideToast()
-      //             wx.redirectTo({
-      //               url: '../notebook/notebook',
-      //               complete: function (res) {
-      //                 // complete
-      //               }
-      //             })
-      //           });
-      //         },
-      //         error: function (error) {
-      //           console.log("error", error);
-      //           common.showModal("出现错误，请重新尝试");
-      //         }
-      //       })
-      //     }
-      //     else {
-      //       var query = Bmob.Query(Answer);
-      //       query.equalTo("questionId", that.data.qId);
-      //       query.count({
-      //         success: function (count) {
-      //           that.data.question.set("answerNum", count);
-      //           that.data.question.save(null, {
-      //             success: function (result) {
-      //               console.log("updata answerNum succeed!");
-      //             },
-      //             error: function (error) {
-      //               console.log("error", error);
-      //               common.showModal("出现错误，请重新尝试");
-      //             }
-      //           })
-      //         }
-      //       })
-      //     }
-      //     that.setData({
-      //       isLoading: false,
-      //       published: true
-      //     })
-      //   },
-      //   error: function (error) {
-      //     console.log("error", error);
-      //     common.showModal("出现错误，请重新尝试");
-      //     that.setData({
-      //       isLoading: false,
-      //       published: true
-      //     })
-      //   }
-      // })
     }
   },
-  inform: function (formId) {
+  inform: function () {
     console.log(that.data.userData.openid)
-    var temp = {
-      "touser": that.data.userData.openid,
-      "template_id": "ku15Yz6RyCHEQ04hc-pC-y3U2MJ2GYHYHp-JIrEUU9w",
-      "page": "pages/view/view?questionId=" + that.data.qId,
-      "form_id": formId,
-      "data": {
-        "keyword1": {
-          "value": that.data.answerer,
+    if (that.data.toformIds.length > 0) {
+      var temp = {
+        "touser": that.data.userData.openid,
+        "template_id": "ku15Yz6RyCHEQ04hc-pC-y3U2MJ2GYHYHp-JIrEUU9w",
+        "page": "pages/view/view?questionId=" + that.data.qId,
+        "form_id": that.data.toformIds[0],
+        "data": {
+          "keyword1": {
+            "value": that.data.answerer,
+          },
+          "keyword2": {
+            "value": that.data.aContent,
+            "color": "#666666"
+          },
+          "keyword3": {
+            "value": "回答"
+          },
+          "keyword4": {
+            "value": util.formatTime(new Date())
+          },
         },
-        "keyword2": {
-          "value": that.data.aContent,
-          "color": "#666666"
-        },
-        "keyword3": {
-          "value": "回答"
-        },
-        "keyword4": {
-          "value": util.formatTime(new Date())
-        },
-      },
-      "emphasis_keyword": ""
+        "emphasis_keyword": ""
+      }
+      that.data.formIds.shift()
+      dboperation.changeUser(that.data.userId, { "formIds": that.data.toformIds }).then(() => {
+        Bmob.sendMessage(temp).then(function (obj) {
+          console.log('发送成功')
+        }, function (err) {
+          common.showTip('失败' + JSON.stringify(err));
+        });
+      }, (err) => { common.showModal(txt_tips + "失败，请重新尝试：" + err.message); })
     }
-    console.log(temp)
-    Bmob.sendMessage(temp).then(function (obj) {
-      console.log('发送成功')
-    },
-      function (err) {
-        common.showTip('失败' + JSON.stringify(err));
-      });
   },
   // 预览图片
   showImg: function (e) {

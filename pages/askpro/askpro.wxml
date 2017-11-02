@@ -44,7 +44,7 @@
       </view>
     </view>
   </view>
-  <view class="weui-cells__tips" hidden="{{hidden}}">*公开问答将会有围观收益，别人也将看到你得问题。该选项仅指定回答者时可选，私问在“我的问答”可查看。</view>
+  <view class="weui-cells__tips" hidden="{{hidden}}">*公开问答将会有围观收益，别人也将看到你的问题。该选项仅指定回答者时可选，私人问题在“我的问答”可查看。</view>
   <!-- </view> -->
   <view class="btn-area">
     <button form-type="submit" data-content="{{content}}" data-title="{{title}}" hover-start-time="200">发布</button>
